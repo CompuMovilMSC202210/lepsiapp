@@ -1,4 +1,4 @@
-package com.javeriana.lepsiapp;
+package com.javeriana.lepsiapp.ui.chat;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -11,26 +11,29 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-public class chatFragment extends Fragment {
+import com.javeriana.lepsiapp.R;
+import com.javeriana.lepsiapp.databinding.FragmentChatBinding;
 
-    private ChatViewModel mViewModel;
+public class ChatFragment extends Fragment {
+    private FragmentChatBinding binding;
 
-    public static chatFragment newInstance() {
-        return new chatFragment();
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ChatViewModel chatViewModel = new ViewModelProvider(this).get(ChatViewModel.class);
+
+        binding = FragmentChatBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+        final TextView textView = binding.textChat;
+        chatViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        return root;
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_chat, container, false);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ChatViewModel.class);
-        // TODO: Use the ViewModel
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 
 }

@@ -1,7 +1,22 @@
-package com.javeriana.lepsiapp;
+package com.javeriana.lepsiapp.ui.chat;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class ChatViewModel extends ViewModel {
-    // TODO: Implement the ViewModel
+
+    private final MutableLiveData<String> mText;
+
+    public ChatViewModel() {
+        mText = new MutableLiveData<>();
+        mText.setValue("This is dashboard fragment");
+    }
+
+
+
+    public LiveData<String> getText() {
+        return mText;
+    }
+
 }

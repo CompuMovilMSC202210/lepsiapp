@@ -1,4 +1,4 @@
-package com.javeriana.lepsiapp;
+package com.javeriana.lepsiapp.ui.eventsHistory;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -11,26 +11,35 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.javeriana.lepsiapp.R;
+import com.javeriana.lepsiapp.databinding.FragmentDashboardBinding;
+import com.javeriana.lepsiapp.databinding.FragmentHistoryBinding;
+import com.javeriana.lepsiapp.ui.dashboard.DashboardViewModel;
 
 public class History extends Fragment {
 
-    private HistoryViewModel mViewModel;
+    private FragmentHistoryBinding binding;
 
-    public static History newInstance() {
-        return new History();
+
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        HistoryViewModel historyViewModel = new ViewModelProvider(this).get(HistoryViewModel.class);
+
+        binding = FragmentHistoryBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+        final TextView textView = binding.textHistory;
+        historyViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        return root;
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.history_fragment, container, false);
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(HistoryViewModel.class);
-        // TODO: Use the ViewModel
-    }
 
 }
