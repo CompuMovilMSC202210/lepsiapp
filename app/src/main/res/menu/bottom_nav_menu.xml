@@ -18,11 +18,11 @@
     <item
         android:id="@+id/navigation_chat"
         android:icon="@drawable/chat"
-        android:title="@string/Salir" />
+        android:title="@string/title_chat" />
     <item
         android:id="@+id/navigation_history"
-        android:icon="@drawable/history"
-        android:title="@string/title_home" />
+        android:icon="@drawable/history1"
+        android:title="@string/title_eventsHistory" />
 
 
 </menu>
