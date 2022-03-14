@@ -6,8 +6,9 @@
     <string name="title_eventsHistory">Historico</string>
     <string name="title_chat">Chat</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="user">Usuario</string>
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
+    <string name="prompt_password">Clave</string>
     <string name="action_sign_in">ENTRAR</string>
     <string name="action_sign_in_short">Ingresar</string>
     <string name="action_register">Registrarse</string>
@@ -15,5 +16,11 @@
     <string name="welcome">"Bienvenido !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
+    <string name="user_name">"Nombres"</string>
+    <string name="user_surname">"Apellidos"</string>
+    <string name="user_id">"ID"</string>
+    <string name="user_idType">"Tipo ID"</string>
+    <string name="user_Eps">"EPS"</string>
+    <string name="user_phone">"Telefono"</string>
+    <string name="user_pwd">"Password"</string>
 </resources>
