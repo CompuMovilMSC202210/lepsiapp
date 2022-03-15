@@ -31,20 +31,13 @@ public class DashboardFragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textContacts;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        //final TextView textView = binding.textContacts;
+        //dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
-        Button btnContact =binding.cnt1;
+        //Button btnContact =binding.cnt1;
 
-        btnContact.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //makeText(getActivity(), "Debe ingresar un número límite para continuar", Toast.LENGTH_SHORT).show();
 
-                inflater.inflate(R.layout.fragment_add_contact, container, false);
 
-            }
-        });
         return root;
     }
 
