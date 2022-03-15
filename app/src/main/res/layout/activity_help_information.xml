@@ -9,5 +9,18 @@
 
         <ImageView android:background="#A63F82" android:layout_height="343dp" android:layout_width="408dp" app:srcCompat="@drawable/logo" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.0" app:layout_constraintEnd_toEndOf="parent" android:id="@+id/imageViewLogo"/>
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="300dp"
+        android:layout_height="224dp"
+        android:layout_marginTop="92dp"
+        android:text="Para mayor información \n www.lepsiapp.com \n\n\n Datos de contacto: \n support@lepsiapp.com.co"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewLogo"
+        tools:ignore="MissingConstraints" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

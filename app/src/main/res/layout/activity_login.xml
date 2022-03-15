@@ -13,19 +13,21 @@
     tools:context=".ui.login.LoginActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:background="@color/white"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="-19dp"
-        tools:layout_editor_absoluteY="-19dp"></LinearLayout>
+        tools:layout_editor_absoluteY="-19dp"
+        tools:ignore="MissingConstraints"></LinearLayout>
 
     <ImageView
         android:id="@+id/imageViewLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="315dp"
+        android:layout_width="386dp"
+        android:layout_height="323dp"
         android:adjustViewBounds="false"
-        android:background="#DAD5D5"
+        android:background="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,6 +41,7 @@
         android:layout_marginTop="68dp"
         android:background="#F5F0F6"
         android:hint="@string/user"
+        android:textAlignment="center"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,6 +55,7 @@
         android:layout_marginTop="8dp"
         android:background="#F5F0F6"
         android:hint="@string/prompt_password"
+        android:textAlignment="center"
         android:imeActionLabel="@string/action_sign_in_short"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
@@ -62,12 +66,13 @@
 
     <Button
         android:id="@+id/login"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="64dp"
-        android:background="#400F2A"
+        android:background="@drawable/round_edges"
         android:enabled="false"
         android:text="@string/action_sign_in"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -96,9 +101,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="76dp"
         android:autoLink="all"
-        android:text="@string/action_register"
+        android:text="@string/register"
+        android:textColor="@color/white"
+        android:textSize="22sp"
         app:layout_constraintEnd_toStartOf="@+id/helpLink"
-        app:layout_constraintHorizontal_bias="0.306"
+        app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login" />
 
@@ -107,13 +114,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="76dp"
-        android:layout_marginEnd="96dp"
+        android:layout_marginEnd="88dp"
         android:autoLink="all"
         android:text="@string/action_help"
+        android:textColor="@color/white"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login"
         tools:ignore="MissingConstraints" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

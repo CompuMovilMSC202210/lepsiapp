@@ -1,143 +1,165 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp"
     tools:context=".Register">
 
 
     <TextView
-        android:id="@+id/lblusername"
+        android:id="@+id/lblName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:text="@string/user_name"
-        app:layout_constraintEnd_toStartOf="@+id/txtUserName"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="89dp" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/txtUserName"
-        android:layout_width="218dp"
-        android:layout_height="wrap_content"
-        android:background="#FFCEBED3"
-        android:hint="hint"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="142dp"
-        tools:layout_editor_absoluteY="84dp" />
-
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/txtUserSurname"
-        android:layout_width="218dp"
-        android:layout_height="wrap_content"
-        android:background="#CEBED3"
-        android:hint="hint"
-        tools:layout_editor_absoluteX="142dp"
-        tools:layout_editor_absoluteY="125dp" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/txtUserPassword"
-        android:layout_width="218dp"
-        android:layout_height="wrap_content"
-        android:background="#FFCEBED3"
-        android:hint="hint"
-        tools:layout_editor_absoluteX="142dp"
-        tools:layout_editor_absoluteY="301dp" />
-
-    <TextView
-        android:id="@+id/lblPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:text="@string/user_pwd"
-        app:layout_constraintEnd_toStartOf="@+id/txtUserPassword"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="306dp" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/txtUserEps"
-        android:layout_width="218dp"
-        android:layout_height="wrap_content"
-        android:background="#FFCEBED3"
-        android:hint="hint"
-        tools:layout_editor_absoluteX="142dp"
-        tools:layout_editor_absoluteY="253dp" />
-
-    <TextView
-        android:id="@+id/lblEps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:text="@string/user_Eps"
-        app:layout_constraintEnd_toStartOf="@+id/txtUserEps"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="258dp" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/txtUserTel"
-        android:layout_width="218dp"
-        android:layout_height="wrap_content"
-        android:background="#FFCEBED3"
-        android:hint="hint"
-        tools:layout_editor_absoluteX="142dp"
-        tools:layout_editor_absoluteY="344dp" />
-
-    <TextView
-        android:id="@+id/lblTel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:text="@string/user_phone"
-        app:layout_constraintEnd_toStartOf="@+id/txtUserTel"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="349dp" />
-
-    <TextView
-        android:id="@+id/lblUserId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:text="@string/user_id"
-        app:layout_constraintEnd_toStartOf="@+id/txtUserId"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="207dp" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/txtUserId"
-        android:layout_width="218dp"
-        android:layout_height="wrap_content"
-        android:background="#FFCEBED3"
-        android:hint="hint"
-        tools:layout_editor_absoluteX="142dp"
-        tools:layout_editor_absoluteY="207dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="80dp"
+        android:text="Nombres:"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/lblSurname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:text="@string/user_surname"
-        app:layout_constraintEnd_toStartOf="@+id/txtUserSurname"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="130dp" />
+        android:layout_below="@id/lblName"
+        android:layout_marginTop="18dp"
+        android:text="Apellidos:"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/lblIdType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/user_idType"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="66dp"
-        tools:layout_editor_absoluteY="170dp" />
+        android:layout_below="@id/lblSurname"
+        android:layout_marginTop="18dp"
+        android:text="Tipo ID"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/lblId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblIdType"
+        android:layout_marginTop="20dp"
+        android:text="Id"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/lblEps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblId"
+        android:layout_marginTop="20dp"
+        android:text="EPS"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/lblPwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblEps"
+        android:layout_marginTop="20dp"
+        android:text="Contraseña"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/lblPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblPwd"
+        android:layout_marginTop="20dp"
+        android:text="@string/user_phone"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/txtName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="80dp"
+        android:background="#ACA0AF"
+        android:ems="80" />
+
+    <EditText
+        android:id="@+id/txtSurName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtName"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="100dp"
+        android:background="#ACA0AF"
+        android:ems="80" />
+
+    <EditText
+        android:id="@+id/txtIdType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtSurName"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="100dp"
+        android:background="#ACA0AF"
+        android:ems="80" />
+
+    <EditText
+        android:id="@+id/txtId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtIdType"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="20dp"
+        android:background="#ACA0AF"
+        android:ems="80"/>
+
+    <EditText
+        android:id="@+id/txtEps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtId"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="100dp"
+        android:background="#ACA0AF"
+        android:ems="80"/>
+
+    <EditText
+        android:id="@+id/txtPwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtEps"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="20dp"
+        android:background="#ACA0AF"
+        android:ems="80"/>
+
+    <EditText
+        android:id="@+id/txtPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtPwd"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="20dp"
+        android:background="#ACA0AF"
+        android:ems="80"/>
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:background="@drawable/round_edges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:text="@string/action_register" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/picture_profile"
-        tools:layout_editor_absoluteX="133dp"
-        tools:layout_editor_absoluteY="416dp" />
+        android:layout_width="187dp"
+        android:layout_height="149dp"
+        android:layout_below="@+id/txtPhone"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="91dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="93dp"
+        app:srcCompat="@drawable/picture_profile" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

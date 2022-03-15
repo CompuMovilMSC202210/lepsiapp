@@ -30,8 +30,8 @@ public class History extends Fragment {
         binding = FragmentHistoryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHistory;
-        historyViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+       // final TextView textView = binding.textHistory;
+      //  historyViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
