@@ -5,19 +5,27 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingLeft="0dp"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingRight="0dp"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="#A63F82"
     tools:context=".ui.login.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="-19dp"
+        tools:layout_editor_absoluteY="-19dp"></LinearLayout>
 
     <ImageView
         android:id="@+id/imageViewLogo"
         android:layout_width="wrap_content"
         android:layout_height="315dp"
         android:adjustViewBounds="false"
-        android:background="#A63F82"
+        android:background="#DAD5D5"
         app:layout_constraintBottom_toTopOf="@+id/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,5 +113,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login"
         tools:ignore="MissingConstraints" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

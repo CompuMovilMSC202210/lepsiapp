@@ -24,4 +24,6 @@
     <string name="user_Eps">"EPS"</string>
     <string name="user_phone">"Telefono"</string>
     <string name="user_pwd">"Password"</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
