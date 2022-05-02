@@ -6,19 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.DashboardFragment">
 
-    <org.osmdroid.views.MapView
-        android:id="@+id/osmMap"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </org.osmdroid.views.MapView>
+
 
     <ImageButton
         android:id="@+id/btnAyudaMain"
         android:paddingBottom="42dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:src="@drawable/b_help"
+        android:src="@drawable/b_help_w"
         android:layout_gravity="bottom"
         tools:ignore="SpeakableTextPresentCheck" />
 
