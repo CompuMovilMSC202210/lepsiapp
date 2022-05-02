@@ -6,33 +6,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="0dp"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="0dp"
+    android:paddingRight="2dp"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="#A63F82"
+    android:background="@color/purplelog"
     tools:context=".ui.login.LoginActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:background="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="380dp"
+        android:background="@color/graycla"
+        android:layout_marginStart="2dp"
+        android:gravity="center_vertical"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="-19dp"
-        tools:layout_editor_absoluteY="-19dp"
-        tools:ignore="MissingConstraints"></LinearLayout>
-
-    <ImageView
-        android:id="@+id/imageViewLogo"
-        android:layout_width="386dp"
-        android:layout_height="323dp"
-        android:adjustViewBounds="false"
-        android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/imageViewLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/purplelog"
+            app:srcCompat="@drawable/logo" />
+    </LinearLayout>
 
     <EditText
         android:id="@+id/username"
@@ -46,7 +43,7 @@
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewLogo" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <EditText
         android:id="@+id/password"
@@ -66,15 +63,16 @@
 
     <Button
         android:id="@+id/login"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="64dp"
-        android:background="@drawable/round_edges"
+        android:textSize="22sp"
+        android:background="@drawable/bot_redon"
         android:enabled="false"
         android:text="@string/action_sign_in"
+        android:textColor="@color/yellowc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,13 +97,13 @@
         android:id="@+id/registerLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="72dp"
         android:autoLink="all"
         android:text="@string/register"
         android:textColor="@color/white"
         android:textSize="22sp"
         app:layout_constraintEnd_toStartOf="@+id/helpLink"
-        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintHorizontal_bias="0.277"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login" />
 
@@ -113,8 +111,8 @@
         android:id="@+id/helpLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="88dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="52dp"
         android:autoLink="all"
         android:text="@string/action_help"
         android:textColor="@color/white"

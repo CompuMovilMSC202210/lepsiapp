@@ -4,14 +4,14 @@
     <string name="Salir">Sign_out</string>
     <string name="title_dashboard">Contactos</string>
     <string name="title_notifications">Dispositivos</string>
-    <string name="title_eventsHistory">Home</string>
+    <string name="title_eventsHistory">Historial</string>
     <string name="title_chat">Chat</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="user">Usuario</string>
     <string name="contact">Contacto</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Clave</string>
-    <string name="action_sign_in">ENTRAR</string>
+    <string name="action_sign_in">Entrar</string>
     <string name="action_sign_in_short">Ingresar</string>
     <string name="action_register">REGISTRARSE</string>
     <string name="register">Registarse</string>

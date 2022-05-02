@@ -15,6 +15,7 @@
         android:id="@+id/navigation_dashboard"
         android:name="com.javeriana.lepsiapp.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
+        android:iconTint="@color/purple_700"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment

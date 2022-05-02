@@ -1,84 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.eventsHistory.History">
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:paddingTop="5dp"
+        android:text="Historial de eventos"
+        android:gravity="center"
+        android:textColor="#400F2A"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="99dp"
+        tools:layout_editor_absoluteY="48dp" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/frameLayout"
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_history_logo"
+        android:layout_below="@id/textView3"
+        tools:layout_editor_absoluteX="155dp"
+        tools:layout_editor_absoluteY="120dp" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="2dp"
-        android:background="#E5E5E5"
-        android:backgroundTintMode="add"
-        android:orientation="vertical">
+        android:layout_below="@id/imageView3"
+        android:layout_marginTop="1dp">
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/frameLayout2"
-            android:layout_width="405dp"
-            android:layout_height="565dp"
-            android:layout_marginTop="80dp"
-            android:background="#E5E5E5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:src="@drawable/ic_history_logo"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Historial de eventos"
-                android:textColor="#400F2A"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@+id/button7"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView3" />
-
-            <Button
-                android:id="@+id/button7"
-                android:layout_width="241dp"
-                android:layout_height="81dp"
-                android:layout_marginTop="88dp"
-                android:background="@drawable/round_edges"
-                android:text="Evento 1           15/03/2022"
-                android:textColor="#E5E5E5"
-                android:typeface="sans"
-                app:iconTintMode="multiply"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView3" />
-
-            <Button
-                android:id="@+id/buttone2"
-                android:layout_width="241dp"
-                android:layout_height="81dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/round_edges"
-                android:text="Evento 2           15/01/2022"
-                android:textColor="#E5E5E5"
-                android:typeface="sans"
-                app:iconTintMode="multiply"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button7" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+        <ListView
+            android:id="@+id/hist_list_even"
+            android:layout_width="fill_parent"
+            android:layout_height="574dp"/>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
