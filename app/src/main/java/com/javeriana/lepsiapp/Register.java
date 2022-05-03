@@ -4,10 +4,12 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -17,23 +19,33 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
+import com.google.firebase.database.ServerValue;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.HashMap;
+
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 import com.javeriana.lepsiapp.ui.PreferManag;
 import com.javeriana.lepsiapp.ui.login.LoginActivity;
 
@@ -53,7 +65,7 @@ public class Register extends AppCompatActivity {
 
     String userEmail, userPwd, userName, userPhone, userSurname, userId, userEps, userTypeId;
 
-
+    private static final int IMAGE_REQUEST = 10;
     //FirebaseAuth
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
@@ -62,7 +74,9 @@ public class Register extends AppCompatActivity {
     FirebaseUser firebaseUser;
     ProgressDialog progressDialog;
     SharedPreferences sharedPreference;
-
+    private Uri imageUri;
+    private StorageTask uploadTask;
+    StorageReference storageReference;
 
 
 
@@ -90,13 +104,13 @@ public class Register extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         btnCamara = findViewById(R.id.BtnCamara);
         btnRegister = findViewById(R.id.btnRegister);
-
+        btnGalery = findViewById(R.id.BtnGaleria);
         SelectedImage = findViewById(R.id.imageView);
         File file = new File(getFilesDir(), "picFromCamera");
         uriCamera = FileProvider.getUriForFile(this, 	getApplicationContext().getPackageName() + ".fileprovider", file);
 
         btnCamara.setOnClickListener(view -> mGetContentCamera.launch(uriCamera));
-       // btnGalery.setOnClickListener(view -> getContentGallery.launch("image/*"));
+        btnGalery.setOnClickListener(view -> getContentGallery.launch("image/*"));
 
 
 
@@ -139,11 +153,13 @@ public class Register extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
 
-                        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                        firebaseUser = mAuth.getCurrentUser();
                         assert firebaseUser != null;
                         String userid = firebaseUser.getUid();
 
                         DatabaseReference reference = database.getReference("Usuarios/"+firebaseUser.getUid());
+                        // para subir la foto
+                        storageReference = FirebaseStorage.getInstance().getReference("uploads");
                         //reference.setValue(usuario);
                        // finish();
 
@@ -167,6 +183,7 @@ public class Register extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
+                                    //uploadImage();
                                     Toast.makeText(Register.this, "Registro existoso, por favor inicie sesión", Toast.LENGTH_SHORT).show();
                                     mAuth.signOut();
                                     Intent intent = new Intent(Register.this, LoginActivity.class);
@@ -247,6 +264,80 @@ public class Register extends AppCompatActivity {
         return true;
     }
 
+    private void uploadImage(){
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setMessage("Uploading");
+        pd.show();
+
+        if (imageUri != null){
+            final StorageReference fileReference = storageReference.child(System.currentTimeMillis()
+                    +"."+getFileExtension(imageUri));
+
+            uploadTask = fileReference.putFile(imageUri);
+            uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+
+                    if (!task.isSuccessful()){
+                        throw task.getException();
+                    }
+
+                    return fileReference.getDownloadUrl();
+
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()){
+                        Uri downloadUri = task.getResult();
+                        String mUri = downloadUri.toString();
+
+                        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+                        HashMap<String, Object> map = new HashMap<>();
+                        map.put("imageURL", mUri);
+                        reference.updateChildren(map);
+
+                        pd.dismiss();
+                    } else {
+                        //Toast.makeText(this, "Falla!", Toast.LENGTH_SHORT).show();
+                        pd.dismiss();
+                    }
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                   // Toast.makeText(, e.getMessage(),Toast.LENGTH_SHORT).show();
+                    pd.dismiss();
+                }
+            });
+        } else {
+          //  Toast.makeText(getContext(),"No se seleccionó imagen", Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
+            imageUri = data.getData();
+
+            if (uploadTask != null && uploadTask.isInProgress()){
+                Toast.makeText(this, "carga en proceso", Toast.LENGTH_SHORT).show();
+            } else {
+                uploadImage();
+            }
+
+        }
+
+    }
+
+    private String getFileExtension(Uri uri){
+        ContentResolver contentResolver = this.getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+
+    }
     public void Salir(View v){
         //cierre sesion
         mAuth.signOut();
