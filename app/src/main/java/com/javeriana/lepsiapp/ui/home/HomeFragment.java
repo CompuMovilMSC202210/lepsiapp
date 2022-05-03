@@ -80,11 +80,29 @@ public class HomeFragment extends Fragment {
     double newlatitude = 4.78;
     double newlongitude = -74.14;
 
+    double latitude1 = 4.646631;
+    double longitude1 = -74.069015; //4.646631, -74.069015
+
+    double latitude2 = 4.622133;
+    double longitude2 = -74.083210; // 4.622133, -74.083210
+
+    double latitude3 = 4.634281;
+    double longitude3 = -74.115100; //4.634281, -74.115100
+
+
     public static double RADIUS_OF_EARTH_KM = 6371;
     public static double DES_LAT = 4.78;
     public static double DES_LONG = -74.14;
 
     GeoPoint startPoint = new GeoPoint(latitude, longitude);
+
+    GeoPoint person1 = new GeoPoint(latitude1, longitude1);
+    GeoPoint person2 = new GeoPoint(latitude2, longitude2);
+    GeoPoint person3 = new GeoPoint(latitude3, longitude3);
+
+    Marker per1Market;
+    Marker per2Market;
+    Marker per3Market;
 
     IMapController mapController;
 
@@ -205,7 +223,7 @@ public class HomeFragment extends Fragment {
             public void onAccuracyChanged(Sensor sensor, int i) {}
             @Override
             public void onSensorChanged(SensorEvent event) {
-                luxometro.setText(String.valueOf(event.values[0]));
+                //luxometro.setText(String.valueOf(event.values[0]));
                 if (event.values[0] < 30) {
                     map.getOverlayManager().getTilesOverlay().setColorFilter(TilesOverlay.INVERT_COLORS);
                 } else {
@@ -246,7 +264,7 @@ public class HomeFragment extends Fragment {
                     orientations[2] = orientations[2] + 360;
                 }
 
-                orientacionx.setText(String.valueOf(orientations[0]));
+               //orientacionx.setText(String.valueOf(orientations[0]));
                 map.setMapOrientation(orientations[0]);
             }
 
@@ -254,6 +272,30 @@ public class HomeFragment extends Fragment {
             public void onAccuracyChanged(Sensor sensor, int i) {
             }
         };
+
+        btHeld.setOnClickListener(view -> {
+
+            double distance1 = distance(startPoint.getLatitude(), startPoint.getLongitude(), latitude1, longitude1);
+            double distance2 = distance(startPoint.getLatitude(), startPoint.getLongitude(), latitude2, longitude2);
+            double distance3 = distance(startPoint.getLatitude(), startPoint.getLongitude(), latitude3, longitude3);
+
+            double zoom_ =(-1.161*Math.log(distance1)+14.729)*1.09;
+
+            per1Market = createMarker(person1, "Familia1 "+ distance1+ " km", null, R.drawable.marker11);
+            per2Market = createMarker(person2, "Familia2 "+ distance2+ " km", null, R.drawable.marker11);
+            per3Market = createMarker(person3, "Familia3 "+ distance3+ " km", null, R.drawable.marker11);
+            map.getOverlays().add(per1Market);
+            map.getOverlays().add(per2Market);
+            map.getOverlays().add(per3Market);
+
+            mapController = map.getController();
+            mapController.setZoom(zoom_);
+            mapController.setCenter(startPoint);
+
+            drawRoute(startPoint, person1);
+
+        }
+        );
 
         roadManager = new OSRMRoadManager(binding.getRoot().getContext(), "ANDROID");
 
@@ -412,6 +454,7 @@ public class HomeFragment extends Fragment {
                         mapController.setCenter(startPoint);
                     }
 
+
                     //elevation = lastLocation.getAltitude();
                 }
             }
@@ -434,7 +477,7 @@ public class HomeFragment extends Fragment {
         map.onResume();
 
         mapController = map.getController();
-        mapController.setZoom(4.0);
+        mapController.setZoom(10.0);
         mapController.setCenter(this.startPoint);
 
         sensorManager.registerListener(lightSensorListener, lightSensor,

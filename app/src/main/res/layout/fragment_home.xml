@@ -3,12 +3,36 @@
     <TextView android:id="@+id/textPermission" android:layout_width="match_parent" android:layout_height="match_parent"/>
     <org.osmdroid.views.MapView android:id="@+id/osmMap" android:layout_width="match_parent" android:layout_height="match_parent"> </org.osmdroid.views.MapView>
     <TableRow android:id="@+id/tableRow1" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="center" android:weightSum="4">
-        <TextView android:id="@+id/textLatitud" android:layout_width="0dp" android:layout_weight="1" android:text="@string/latitud"/>
-        <TextView android:id="@+id/txtlatitude" android:layout_width="0dp" android:layout_weight="1" android:text=""/>
-        <TextView android:id="@+id/txt_lux" android:layout_width="0dp" android:layout_weight="1" android:text=""/>
-        <TextView android:id="@+id/txt_orix" android:layout_width="0dp" android:layout_weight="1" android:text=""/>
+
+        <TextView
+            android:id="@+id/textLatitud"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/latitud"
+            tools:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/txtlatitude"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text=""
+            tools:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/txt_lux"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text=""
+            tools:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/txt_orix"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text=""
+            tools:visibility="invisible" />
     </TableRow>
-    <ImageButton android:id="@+id/btnAyudaMain" android:paddingBottom="42dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/b_help_w" android:layout_gravity="bottom|center" android:background="@drawable/ic_circle_background" tools:ignore="SpeakableTextPresentCheck"/>
+    <ImageButton android:id="@+id/btnAyudaMain" android:paddingBottom="42dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/b_help_w" android:layout_gravity="bottom|center" android:background="@drawable/ic_circle_background"  tools:ignore="SpeakableTextPresentCheck"/>
 </FrameLayout>
 
 

@@ -29,7 +29,7 @@
         <entry key="..\:/Users/Sebastian/Documents/Aplicaciones/LepsiApp/lepsiapp/app/src/main/res/layout/fragment_notifications.xml" value="0.12" />
         <entry key="..\:/Users/Sebastian/Documents/Aplicaciones/LepsiApp/lepsiapp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
         <entry key="..\:/Users/Sebastian/Documents/Aplicaciones/lepsiapp/app/src/main/res/drawable/marker11.xml" value="0.1" />
-        <entry key="..\:/Users/Sebastian/Documents/Aplicaciones/lepsiapp/app/src/main/res/layout/fragment_home.xml" value="0.10277777777777777" />
+        <entry key="..\:/Users/Sebastian/Documents/Aplicaciones/lepsiapp/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/diana.rodriguez/lepsiapp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/diana.rodriguez/lepsiapp/app/src/main/res/drawable/bot_redon.xml" value="0.1" />
         <entry key="..\:/Users/diana.rodriguez/lepsiapp/app/src/main/res/drawable/histo_imag_graf.xml" value="0.373" />
@@ -85,14 +85,6 @@
         <entry key="..\:/Users/jeigomez/Documents/GitHub/lepsiapp/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/jeigomez/Documents/GitHub/lepsiapp/app/src/main/res/layout/activity_password_recovery.xml" value="0.1" />
         <entry key="..\:/Users/jeigomez/Documents/GitHub/lepsiapp/app/src/main/res/layout/activity_register.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.19479166666666667" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1361111111111111" />
-        <entry key="app/src/main/res/layout/activity_password_recovery.xml" value="0.1361111111111111" />
-        <entry key="app/src/main/res/layout/activity_register.xml" value="0.1361111111111111" />
-        <entry key="app/src/main/res/layout/card_view_mensajes.xml" value="0.14583333333333334" />
-        <entry key="app/src/main/res/layout/fragment_add_contact.xml" value="0.2953125" />
-        <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.19479166666666667" />
-        <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.1361111111111111" />
       </map>
     </option>
   </component>
