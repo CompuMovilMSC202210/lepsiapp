@@ -19,14 +19,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.javeriana.lepsiapp.AdapterMensajes;
 import com.javeriana.lepsiapp.Entidades.MensajeEnviar;
 import com.javeriana.lepsiapp.Entidades.MensajeRecibir;
 import com.javeriana.lepsiapp.Entidades.Usuario;
-import com.javeriana.lepsiapp.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,8 +38,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.javeriana.lepsiapp.ui.login.LoginActivity;
-
-import java.lang.ref.Reference;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

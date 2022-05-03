@@ -62,8 +62,6 @@ public class AdapterMensajes extends RecyclerView.Adapter <HolderMensaje>{
         holder.getHora().setText(sdf.format(d));
 
 
-
-
     }
 
     @Override

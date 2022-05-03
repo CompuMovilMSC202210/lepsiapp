@@ -8,30 +8,35 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.javeriana.lepsiapp.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:fontFamily="@font/antic_didone"
+        android:label="@string/nombre_app"
         tools:layout="@layout/fragment_home" />
+
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.javeriana.lepsiapp.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        android:iconTint="@color/purple_700"
+        android:fontFamily="@font/antic_didone"
+        android:label="@string/nombre_app"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.javeriana.lepsiapp.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:fontFamily="@font/antic_didone"
+        android:label="@string/nombre_app"
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/navigation_history"
         android:name="com.javeriana.lepsiapp.ui.eventsHistory.History"
-        android:label="@string/title_eventsHistory"
+        android:fontFamily="@font/antic_didone"
+        android:label="@string/nombre_app"
         tools:layout="@layout/fragment_history" />
 
     <fragment
         android:id="@+id/navigation_chat"
         android:name="com.javeriana.lepsiapp.ui.chat.ChatFragment"
-        android:label="@string/title_chat"
+        android:fontFamily="@font/antic_didone"
+        android:label="@string/nombre_app"
         tools:layout="@layout/fragment_chat" />
 </navigation>

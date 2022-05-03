@@ -4,51 +4,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp"
+    android:background="@color/gris_claro"
     tools:context=".ui.dashboard.DashboardFragment">
 
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="137dp"
+        android:layout_height="113dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/Add_or_Edit"
+        android:src="@drawable/ic_contacts"
+        app:tint="@color/purpura_medio" />
+
+    <TextView
+        android:id="@+id/lbltlt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageView4"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/Add_or_Edit"
+        android:textAlignment="center"
+        android:textColor="@color/purpura_oscuro"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/ct_bot_1"
         android:layout_width="257dp"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/lbltlt"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="92dp"
-        android:background="@drawable/bot_redon"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/round_edges"
+        android:fontFamily="@font/roboto"
         android:text="@string/texto_cont1"
-        android:textColor="@color/yellowc"
-        android:textSize="24sp" />
+        android:textColor="@color/ocre_claro"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null" />
 
     <Button
         android:id="@+id/ct_bot_2"
         android:layout_width="257dp"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:layout_below="@+id/ct_bot_1"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="79dp"
-        android:layout_marginEnd="92dp"
-        android:background="@drawable/bot_redon"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/round_edges"
+        android:fontFamily="@font/roboto"
         android:text="@string/texto_cont2"
-        android:textColor="@color/yellowc"
-        android:textSize="24sp" />
+        android:textColor="@color/ocre_claro"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null" />
+
     <Button
         android:id="@+id/ct_bot_3"
         android:layout_width="257dp"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:layout_below="@+id/ct_bot_2"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="79dp"
-        android:layout_marginEnd="92dp"
-        android:background="@drawable/bot_redon"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/round_edges"
+        android:fontFamily="@font/roboto"
         android:text="@string/texto_cont3"
-        android:textColor="@color/yellowc"
-        android:textSize="24sp" />
+        android:textColor="@color/ocre_claro"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null" />
 </RelativeLayout>
 
 
