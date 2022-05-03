@@ -41,4 +41,5 @@
     <string name="imagen_de_galeria_o_camara">Imagen de galeria o Camara</string>
     <string name="recoverPassword">Recuperar Password</string>
     <string name="login_failed">Datos Incorrectos</string>
+    <string name="latitud" />
 </resources>
