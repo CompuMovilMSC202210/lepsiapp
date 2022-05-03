@@ -44,24 +44,24 @@ public class Register extends AppCompatActivity {
     ImageView SelectedImage;
     Button btnCamara, btnGalery, btnRegister;
     Uri uriCamera;
-    EditText email;
-    EditText pass;
-    EditText username;
+    EditText email, pass, username, userphone, usereps, userid, usersurname;
+
     public static String TAG = "LepsiApp";
     View login_tab_fragment;
     int btnUserid;
 
-    String userEmail;
-    String userPwd;
-    String userName;
+    String userEmail, userPwd, userName, userPhone, userSurname, userId, userEps, userTypeId;
 
     //FirebaseAuth
     private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
     DatabaseReference reference;
     PreferManag preferenceManager;
     FirebaseUser firebaseUser;
     ProgressDialog progressDialog;
     SharedPreferences sharedPreference;
+
+
 
 
     ActivityResultLauncher<String> getContentGallery = registerForActivityResult(
@@ -83,22 +83,18 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        SelectedImage = findViewById(R.id.imageView);
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
         btnCamara = findViewById(R.id.BtnCamara);
         btnRegister = findViewById(R.id.btnRegister);
 
-
+        SelectedImage = findViewById(R.id.imageView);
         File file = new File(getFilesDir(), "picFromCamera");
         uriCamera = FileProvider.getUriForFile(this, 	getApplicationContext().getPackageName() + ".fileprovider", file);
 
         btnCamara.setOnClickListener(view -> mGetContentCamera.launch(uriCamera));
-        //btnGalery.setOnClickListener(view -> getContentGallery.launch("image/*"));
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+      //  btnGalery.setOnClickListener(view -> getContentGallery.launch("image/*"));
 
-            }
-        });
 
     }
 
@@ -119,30 +115,45 @@ public class Register extends AppCompatActivity {
         email=(EditText) findViewById(R.id.txtEmail);
         pass=(EditText) findViewById(R.id.txtPwd);
         username=(EditText) findViewById(R.id.txtName);
+        userid=(EditText) findViewById(R.id.txtId);
+        userphone=(EditText) findViewById(R.id.txtPhone);
+        usersurname=(EditText) findViewById(R.id.txtSurName);
+        usereps=(EditText) findViewById(R.id.txtEps);
 
         userEmail =email.getText().toString();
         userPwd=pass.getText().toString();
         userName=username.getText().toString();
+        userEps= usereps.getText().toString();
+        userId= userid.getText().toString();
+        userPhone= userphone.getText().toString();
+        userSurname= usersurname.getText().toString();
 
-        if(validateForm(userEmail,userPwd,userName))
+        if(validateForm(userEmail,userPwd,userName, userSurname, userPhone, userEps, userId))
         {
             mAuth.createUserWithEmailAndPassword(userEmail,userPwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
-                        // updateUI(mAuth.getCurrentUser());
 
                         FirebaseUser firebaseUser = mAuth.getCurrentUser();
                         assert firebaseUser != null;
                         String userid = firebaseUser.getUid();
 
-                        reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
+                        DatabaseReference reference = database.getReference("Usuarios/"+firebaseUser.getUid());
+                        //reference.setValue(usuario);
+                       // finish();
+
+                       // reference = FirebaseDatabase.getInstance().getReference("Usuarios").child(userid);
 
                         HashMap<String, String> hashMap = new HashMap<>();
                         hashMap.put("id", userid);
-                        hashMap.put("username", userName);
+                        hashMap.put("userId", userid);
+                        hashMap.put("userName", userName);
+                        hashMap.put("userSurname", userSurname);
+                        hashMap.put("userPhone", userPhone);
                         hashMap.put(Constants.KEY_EMAIL , userEmail);
                         hashMap.put(Constants.KEY_PASSWORD , userPwd);
+                        hashMap.put("userEps", userEps);
                         hashMap.put("imageURL", "default");
                         hashMap.put("status", "offline");
                         hashMap.put("search", userEmail.toLowerCase());
@@ -171,7 +182,7 @@ public class Register extends AppCompatActivity {
             });
         }
     }
-    private boolean validateForm(String emailS, String passwordS, String usernameS)
+    private boolean validateForm(String emailS, String passwordS, String usernameS, String userSurnameS, String userPhoneS, String userEpsS, String userIdS)
     {
         boolean esValido=true;
 
@@ -182,11 +193,26 @@ public class Register extends AppCompatActivity {
         }
 
         usernameS.trim();
+
         if(TextUtils.isEmpty(usernameS)){
             esValido=false;
-            //   username.setError("Campo Requerido");
+            username.setError("Campo Requerido");
         }
-
+        userSurnameS.trim();
+        if(TextUtils.isEmpty(userSurnameS)){
+            esValido=false;
+            usersurname.setError("Campo Requerido");
+        }
+        userIdS.trim();
+        if(TextUtils.isEmpty(userIdS)){
+            esValido=false;
+            userid.setError("Campo Requerido");
+        }
+        userPhoneS.trim();
+        if(TextUtils.isEmpty(userPhoneS)){
+            esValido=false;
+            userphone.setError("Campo Requerido");
+        }
         passwordS.trim();
         if(TextUtils.isEmpty(passwordS)){
             esValido=false;
@@ -225,4 +251,6 @@ public class Register extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
+
+
 }
