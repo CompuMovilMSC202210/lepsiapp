@@ -37,6 +37,7 @@ import java.util.HashMap;
 import com.javeriana.lepsiapp.ui.PreferManag;
 import com.javeriana.lepsiapp.ui.login.LoginActivity;
 
+
 import Utils.Constants;
 
 public class Register extends AppCompatActivity {
@@ -51,6 +52,7 @@ public class Register extends AppCompatActivity {
     int btnUserid;
 
     String userEmail, userPwd, userName, userPhone, userSurname, userId, userEps, userTypeId;
+
 
     //FirebaseAuth
     private FirebaseAuth mAuth;
@@ -84,6 +86,7 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         mAuth = FirebaseAuth.getInstance();
+
         database = FirebaseDatabase.getInstance();
         btnCamara = findViewById(R.id.BtnCamara);
         btnRegister = findViewById(R.id.btnRegister);
@@ -93,7 +96,8 @@ public class Register extends AppCompatActivity {
         uriCamera = FileProvider.getUriForFile(this, 	getApplicationContext().getPackageName() + ".fileprovider", file);
 
         btnCamara.setOnClickListener(view -> mGetContentCamera.launch(uriCamera));
-      //  btnGalery.setOnClickListener(view -> getContentGallery.launch("image/*"));
+       // btnGalery.setOnClickListener(view -> getContentGallery.launch("image/*"));
+
 
 
     }
@@ -225,9 +229,9 @@ public class Register extends AppCompatActivity {
             pass.setError("La contraseña debe tener al menos 6 caracteres");
         }
 
-        if(esValido=true && TextUtils.isEmpty(passwordS)!=true){
-            esValido=validarEmail(emailS);
-            if (esValido==false) {
+        if(esValido==true && TextUtils.isEmpty(passwordS)!=true){
+            if (validarEmail(emailS)==false) {
+                esValido=false;
                 email.setError("Formato de email incorrecto");
             }
         }
