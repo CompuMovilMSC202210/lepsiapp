@@ -13,28 +13,30 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="380dp"
-        android:background="@color/graycla"
-        android:layout_marginStart="2dp"
-        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:background="@color/white"
         android:orientation="vertical"
+        tools:layout_editor_absoluteX="-19dp"
+        tools:layout_editor_absoluteY="-19dp"
+        tools:ignore="MissingConstraints"></LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageViewLogo"
+        android:layout_width="386dp"
+        android:layout_height="323dp"
+        android:adjustViewBounds="false"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints">
-
-        <ImageView
-            android:id="@+id/imageViewLogo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/purplelog"
-            app:srcCompat="@drawable/logo" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
 
     <EditText
         android:id="@+id/username"
         android:layout_width="255dp"
-        android:layout_height="37dp"
+        android:layout_height="35dp"
         android:layout_marginTop="68dp"
         android:background="#F5F0F6"
         android:hint="@string/user"
@@ -43,12 +45,12 @@
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewLogo" />
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="254dp"
-        android:layout_height="42dp"
+        android:layout_width="255dp"
+        android:layout_height="35dp"
         android:layout_marginTop="8dp"
         android:background="#F5F0F6"
         android:hint="@string/prompt_password"
@@ -61,22 +63,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
+    <TextView
+        android:id="@+id/recoverPwdLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:autoLink="all"
+        android:text="@string/recoverPassword"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
+
     <Button
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="64dp"
-        android:textSize="22sp"
-        android:background="@drawable/bot_redon"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/round_edges"
         android:enabled="false"
         android:text="@string/action_sign_in"
-        android:textColor="@color/yellowc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
+        app:layout_constraintTop_toBottomOf="@+id/recoverPwdLink"
         app:layout_constraintVertical_bias="0.2" />
 
     <ProgressBar
@@ -97,13 +110,13 @@
         android:id="@+id/registerLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="15dp"
         android:autoLink="all"
         android:text="@string/register"
         android:textColor="@color/white"
-        android:textSize="22sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/helpLink"
-        app:layout_constraintHorizontal_bias="0.277"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login" />
 
@@ -111,12 +124,12 @@
         android:id="@+id/helpLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="52dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="85dp"
         android:autoLink="all"
         android:text="@string/action_help"
         android:textColor="@color/white"
-        android:textSize="22sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login"
         tools:ignore="MissingConstraints" />

@@ -5,7 +5,9 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -24,10 +26,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.javeriana.lepsiapp.HelpInformation;
 import com.javeriana.lepsiapp.MainActivity;
+import com.javeriana.lepsiapp.PasswordRecovery;
 import com.javeriana.lepsiapp.R;
 import com.javeriana.lepsiapp.Register;
+import com.javeriana.lepsiapp.ui.PreferManag;
 import com.javeriana.lepsiapp.ui.login.LoginViewModel;
 import com.javeriana.lepsiapp.ui.login.LoginViewModelFactory;
 import com.javeriana.lepsiapp.databinding.ActivityLoginBinding;
@@ -37,13 +44,23 @@ public class LoginActivity extends AppCompatActivity {
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
 
+
+    //FirebaseAuth
+    private FirebaseAuth firebaseAuth;
+    DatabaseReference reference;
+    PreferManag preferenceManager;
+    FirebaseUser firebaseUser;
+    ProgressDialog progressDialog;
+    SharedPreferences sharedPreference;
+
+    TextView forgotpassword;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        firebaseAuth = FirebaseAuth.getInstance();
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
@@ -125,12 +142,19 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
-               /* loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());*/
+               loginViewModel.login(usernameEditText.getText().toString(),  passwordEditText.getText().toString());
                 homeViewActivity(v);
             }
         });
 
+        TextView recoveryLink = (TextView) findViewById(R.id.recoverPwdLink);
+        // perform click event on button's
+        recoveryLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recoveryPwdViewActivity(view);
+            }
+        });
 
         TextView registerLink = (TextView) findViewById(R.id.registerLink);
 
@@ -155,7 +179,7 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         // TODO : initiate successful logged in experience
-        //Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
@@ -171,4 +195,8 @@ public class LoginActivity extends AppCompatActivity {
     public void helpViewActivity(View v){
         startActivity(new Intent(this, HelpInformation.class));
     }
+    public void recoveryPwdViewActivity(View v){
+        startActivity(new Intent(this, PasswordRecovery.class));
+    }
+
 }

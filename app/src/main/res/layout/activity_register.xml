@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="40dp"
         android:text="Nombres:"
         android:textSize="18sp" />
 
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/lblIdType"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="18dp"
         android:text="Id"
         android:textSize="18sp" />
 
@@ -49,16 +49,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/lblId"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="18dp"
         android:text="EPS"
         android:textSize="18sp" />
-
+    <TextView
+        android:id="@+id/lblEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblEps"
+        android:layout_marginTop="18dp"
+        android:text="Email"
+        android:textSize="18sp" />
     <TextView
         android:id="@+id/lblPwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lblEps"
-        android:layout_marginTop="20dp"
+        android:layout_below="@id/lblEmail"
+        android:layout_marginTop="18dp"
         android:text="Contraseña"
         android:textSize="18sp" />
 
@@ -67,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/lblPwd"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="18dp"
         android:text="@string/user_phone"
         android:textSize="18sp" />
 
@@ -76,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="40dp"
         android:background="#ACA0AF"
         android:ems="80" />
 
@@ -85,7 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtName"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="18dp"
         android:layout_marginLeft="100dp"
         android:background="#ACA0AF"
         android:ems="80" />
@@ -95,7 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtSurName"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="18dp"
         android:layout_marginLeft="100dp"
         android:background="#ACA0AF"
         android:ems="80" />
@@ -106,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/txtIdType"
         android:layout_marginLeft="100dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="18dp"
         android:background="#ACA0AF"
         android:ems="80"/>
 
@@ -115,7 +122,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtId"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginLeft="100dp"
+        android:background="#ACA0AF"
+        android:ems="80"/>
+    <EditText
+        android:id="@+id/txtEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtEps"
+        android:layout_marginTop="18dp"
         android:layout_marginLeft="100dp"
         android:background="#ACA0AF"
         android:ems="80"/>
@@ -124,9 +140,9 @@
         android:id="@+id/txtPwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txtEps"
+        android:layout_below="@id/txtEmail"
         android:layout_marginLeft="100dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="18dp"
         android:background="#ACA0AF"
         android:ems="80"/>
 
@@ -136,19 +152,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/txtPwd"
         android:layout_marginLeft="100dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="18dp"
         android:background="#ACA0AF"
         android:ems="80"/>
 
-    <Button
-        android:id="@+id/btnRegister"
-        android:background="@drawable/round_edges"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp"
-        android:text="@string/action_register" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -158,8 +165,46 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="91dp"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="93dp"
+        android:contentDescription="@string/imagen_de_galeria_o_camara"
+        android:scaleType="fitCenter"
         app:srcCompat="@drawable/picture_profile" />
+
+
+    <Button
+        android:id="@+id/BtnGaleria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/galeria"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/BtnCamara"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/BtnCamara"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnRegister"
+        android:layout_alignEnd="@id/BtnGaleria"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="-220dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/camara" />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/BtnGaleria"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="91dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/round_edges"
+        android:text="@string/action_register" />
 
 </RelativeLayout>

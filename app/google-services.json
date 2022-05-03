@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1045156929235",
+    "project_id": "lepsiapp-e4e9d",
+    "storage_bucket": "lepsiapp-e4e9d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1045156929235:android:691bfe5c7f6910962d3e26",
+        "android_client_info": {
+          "package_name": "com.javeriana.lepsiapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1045156929235-2uoh239httjuuq7v511ubmmu6vrqt5n1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALLsTiDY03eorc9zKBE4S7TGpS5mWGLIg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1045156929235-2uoh239httjuuq7v511ubmmu6vrqt5n1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

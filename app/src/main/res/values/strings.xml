@@ -18,8 +18,8 @@
     <string name="action_save">GUARDAR</string>
     <string name="action_help">Ayuda</string>
     <string name="welcome">"Bienvenido !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="invalid_username">No es un usuario Válido</string>
+    <string name="invalid_password">Password debe ser >5 caracterés</string>
     <string name="user_name">"Nombres"</string>
     <string name="user_surname">"Apellidos"</string>
     <string name="user_id">"ID"</string>
@@ -36,4 +36,9 @@
     <string name="texto_cont3">"Contacto 3"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="camara">Camara</string>
+    <string name="galeria">Galeria</string>
+    <string name="imagen_de_galeria_o_camara">Imagen de galeria o Camara</string>
+    <string name="recoverPassword">Recuperar Password</string>
+    <string name="login_failed">Datos Incorrectos</string>
 </resources>
