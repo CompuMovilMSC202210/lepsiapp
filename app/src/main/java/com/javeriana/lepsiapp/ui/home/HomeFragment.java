@@ -89,10 +89,7 @@ public class HomeFragment extends Fragment {
     double latitude3 = 4.634281;
     double longitude3 = -74.115100; //4.634281, -74.115100
 
-
     public static double RADIUS_OF_EARTH_KM = 6371;
-    public static double DES_LAT = 4.78;
-    public static double DES_LONG = -74.14;
 
     GeoPoint startPoint = new GeoPoint(latitude, longitude);
 
@@ -293,6 +290,8 @@ public class HomeFragment extends Fragment {
             mapController.setCenter(startPoint);
 
             drawRoute(startPoint, person1);
+                    gps_geo = person1;
+                    markerstatus = true;
 
         }
         );
@@ -339,7 +338,6 @@ public class HomeFragment extends Fragment {
             gps_geo = p;
             double distance1 = distance(startPoint.getLatitude(), startPoint.getLongitude(), p.getLatitude(), p.getLongitude());
             longPressedMarker = createMarker(p, namepoint + " Distancia " +distance1+ "KM", null, R.drawable.marker11);
-
             Toast.makeText(binding.getRoot().getContext(), "La distancia entre los dos puntos es " + String.valueOf(distance1) + "KM", Toast.LENGTH_LONG).show();
             markerstatus = true;
         }
@@ -477,7 +475,7 @@ public class HomeFragment extends Fragment {
         map.onResume();
 
         mapController = map.getController();
-        mapController.setZoom(10.0);
+        mapController.setZoom(18.0);
         mapController.setCenter(this.startPoint);
 
         sensorManager.registerListener(lightSensorListener, lightSensor,
