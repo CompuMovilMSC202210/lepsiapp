@@ -36,6 +36,8 @@
         </LinearLayout>
     </LinearLayout>
 
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMensajes"
         android:layout_width="365dp"
