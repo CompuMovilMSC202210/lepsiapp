@@ -3,8 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Sebastian/Documents/Aplicaciones/lepsiapp/app/src/main/res/layout-w936dp/activity_registro.xml" value="0.1" />
-        <entry key="..\:/Users/Sebastian/Documents/Aplicaciones/lepsiapp/app/src/main/res/layout/activity_register.xml" value="0.1" />
         <entry key="..\:/Users/jeigomez/AndroidStudioProjects/LepsiApp/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1" />
         <entry key="..\:/Users/jeigomez/AndroidStudioProjects/LepsiApp/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.11278447121820616" />
         <entry key="..\:/Users/jeigomez/AndroidStudioProjects/LepsiApp/app/src/main/res/layout-w936dp/activity_login.xml" value="0.131640625" />
@@ -67,7 +65,7 @@
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/activity_main.xml" value="0.140625" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/activity_mainChat.xml" value="0.1" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/activity_password_recovery.xml" value="0.22" />
-        <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/activity_register.xml" value="0.2" />
+        <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/activity_register.xml" value="0.1" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/card_view_mensajes.xml" value="0.15" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/fragment_add_contact.xml" value="0.25" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/fragment_chat.xml" value="0.20119476318359375" />
