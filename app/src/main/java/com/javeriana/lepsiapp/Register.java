@@ -94,7 +94,7 @@ public class Register extends AppCompatActivity {
 
     ActivityResultLauncher<String> getContentGallery = registerForActivityResult(
             new ActivityResultContracts.GetContent(),
-            result -> loadImage(result,90)
+            result -> loadImage(result,0)
     );
 
     ActivityResultLauncher<Uri> mGetContentCamera = registerForActivityResult(
@@ -102,7 +102,7 @@ public class Register extends AppCompatActivity {
             new ActivityResultCallback<Boolean>() {
                 @Override
                 public void onActivityResult(Boolean result) {
-                    loadImage(uriCamera, 90);
+                    loadImage(uriCamera, 0);
                 }
             });
     ActivityResultLauncher<String> saveImagePermission = registerForActivityResult(
