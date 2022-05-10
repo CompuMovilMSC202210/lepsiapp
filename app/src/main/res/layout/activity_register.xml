@@ -68,6 +68,7 @@
         android:text="@string/prompt_email"
         android:textSize="18sp"
         android:textColor="@color/purpura_oscuro"/>
+
     <TextView
         android:id="@+id/lblPwd"
         android:layout_width="wrap_content"
@@ -75,8 +76,8 @@
         android:layout_below="@id/lblEmail"
         android:layout_marginTop="18dp"
         android:text="@string/user_pwd"
-        android:textSize="18sp"
-        android:textColor="@color/purpura_oscuro"/>
+        android:textColor="@color/purpura_oscuro"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/lblPhone"
@@ -85,17 +86,19 @@
         android:layout_below="@id/lblPwd"
         android:layout_marginTop="18dp"
         android:text="@string/user_phone"
-        android:textSize="18sp"
-        android:textColor="@color/purpura_oscuro"/>
+        android:textColor="@color/purpura_oscuro"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/txtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="130dp"
         android:layout_marginTop="40dp"
         android:background="@color/gris_oscuro"
-        android:ems="80" />
+        android:ems="20"
+        android:inputType="textPersonName"
+        android:imeOptions="flagNavigateNext" />
 
     <EditText
         android:id="@+id/txtSurName"
@@ -103,29 +106,34 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/txtName"
         android:layout_marginTop="18dp"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="130dp"
         android:background="@color/gris_oscuro"
-        android:ems="80" />
+        android:inputType="textPersonName"
+        android:imeOptions="flagNavigateNext"
+        android:ems="20" />
 
-    <EditText
+    <Spinner
         android:id="@+id/txtIdType"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtSurName"
+        android:layout_marginStart="130dp"
         android:layout_marginTop="18dp"
-        android:layout_marginStart="100dp"
-        android:background="@color/gris_oscuro"
-        android:ems="80" />
+        android:ems="20"
+        android:imeOptions="actionNext"
+        android:entries="@array/Identificacion"/>
 
     <EditText
         android:id="@+id/txtId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtIdType"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="130dp"
         android:layout_marginTop="18dp"
         android:background="@color/gris_oscuro"
-        android:ems="80"/>
+        android:inputType="number"
+        android:imeOptions="actionNext"
+        android:ems="20"/>
 
     <EditText
         android:id="@+id/txtEps"
@@ -133,89 +141,116 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/txtId"
         android:layout_marginTop="18dp"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="130dp"
         android:background="@color/gris_oscuro"
-        android:ems="80"/>
+        android:inputType="textPersonName"
+        android:imeOptions="actionNext"
+        android:ems="20"/>
+
     <EditText
         android:id="@+id/txtEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtEps"
+        android:layout_marginStart="130dp"
         android:layout_marginTop="18dp"
-        android:layout_marginStart="100dp"
         android:background="@color/gris_oscuro"
-        android:ems="80"/>
+        android:inputType="textEmailAddress"
+        android:imeOptions="actionNext"
+        android:ems="20" />
 
     <EditText
         android:id="@+id/txtPwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtEmail"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="130dp"
         android:layout_marginTop="18dp"
         android:background="@color/gris_oscuro"
-        android:ems="80"/>
+        android:ems="20"
+        android:imeOptions="actionNext"
+        android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/txtPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtPwd"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="130dp"
         android:layout_marginTop="18dp"
         android:background="@color/gris_oscuro"
-        android:ems="80"/>
+        android:inputType="phone"
+        android:imeOptions="actionNext"
+        android:ems="20" />
 
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView"
-        android:layout_width="187dp"
-        android:layout_height="149dp"
+        android:layout_width="180dp"
+        android:layout_height="150dp"
         android:layout_below="@+id/txtPhone"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp"
-        android:contentDescription="@string/imagen_de_galeria_o_camara"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/ic_foto_perfil" />
-
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="28dp"
+        android:layout_toStartOf="@+id/BtnGaleria"
+        android:src="@drawable/ic_foto_perfil"
+        app:civ_border_color="#FFffffff"
+        app:civ_border_width="2dp" />
 
     <Button
         android:id="@+id/BtnGaleria"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="163dp"
+        android:layout_height="64dp"
         android:layout_below="@+id/txtPhone"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="0dp"
         android:background="@drawable/round_edges"
         android:text="@string/galeria"
         android:textColor="@color/ocre_claro"
         app:backgroundTint="@null" />
 
+
     <Button
         android:id="@+id/BtnCamara"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnRegister"
-        android:layout_alignEnd="@id/BtnGaleria"
+        android:layout_width="163dp"
+        android:layout_height="64dp"
+        android:layout_below="@+id/BtnGaleria"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="12dp"
-        app:backgroundTint="@null"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="0dp"
         android:background="@drawable/round_edges"
         android:text="@string/camara"
-        android:textColor="@color/ocre_claro"/>
+        android:textColor="@color/ocre_claro"
+        app:backgroundTint="@null" />
 
     <Button
         android:id="@+id/btnRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="181dp"
+        android:layout_height="64dp"
         android:layout_below="@+id/imageView"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="12dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="95dp"
         android:background="@drawable/round_edges"
-        app:backgroundTint="@null"
         android:onClick="registrarPressed"
         android:text="@string/action_register"
         android:textColor="@color/ocre_claro"
+        app:backgroundTint="@null"
         tools:ignore="UsingOnClickInXml" />
+
+    <TextView
+        android:id="@+id/textPermissionSave"
+        android:layout_width="116dp"
+        android:layout_height="158dp"
+        android:layout_above="@+id/btnRegister"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="219dp"
+        android:layout_marginBottom="-76dp" />
+
 
 </RelativeLayout>

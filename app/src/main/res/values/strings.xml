@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">       </string>
+    <string name="app_name">LepsiApp</string>
     <string name="nombre_app">LepsiApp</string>
     <string name="title_home">Home</string>
     <string name="Salir">Sign_out</string>
@@ -44,4 +44,15 @@
     <string name="recoverPassword">Recuperar Password</string>
     <string name="login_failed">Datos Incorrectos</string>
     <string name="latitud" />
+    <string name="todoe">TODOe</string>
+    <string name="PermissionSaveImage">Permiso Denegado</string>
+
+
+    <string-array name="Identificacion">
+            <item>Cedula</item>
+            <item>Tarjeta de Identidad</item>
+            <item>Pasaporte</item>
+            <item>Cedula Extranjera</item>
+    </string-array>
+
 </resources>

@@ -9,7 +9,6 @@
         android:id="@+id/navigation_home"
         android:name="com.javeriana.lepsiapp.ui.home.HomeFragment"
         android:fontFamily="@font/antic_didone"
-        android:label="@string/nombre_app"
         tools:layout="@layout/fragment_home" />
 
 
@@ -17,26 +16,22 @@
         android:id="@+id/navigation_dashboard"
         android:name="com.javeriana.lepsiapp.ui.dashboard.DashboardFragment"
         android:fontFamily="@font/antic_didone"
-        android:label="@string/nombre_app"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.javeriana.lepsiapp.ui.notifications.NotificationsFragment"
         android:fontFamily="@font/antic_didone"
-        android:label="@string/nombre_app"
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/navigation_history"
         android:name="com.javeriana.lepsiapp.ui.eventsHistory.History"
         android:fontFamily="@font/antic_didone"
-        android:label="@string/nombre_app"
         tools:layout="@layout/fragment_history" />
 
     <fragment
         android:id="@+id/navigation_chat"
         android:name="com.javeriana.lepsiapp.ui.chat.ChatFragment"
         android:fontFamily="@font/antic_didone"
-        android:label="@string/nombre_app"
         tools:layout="@layout/fragment_chat" />
 </navigation>

@@ -6,42 +6,49 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 
 import com.google.firebase.storage.StorageTask;
@@ -51,13 +58,18 @@ import com.javeriana.lepsiapp.ui.login.LoginActivity;
 
 
 import Utils.Constants;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Register extends AppCompatActivity {
 
-    ImageView SelectedImage;
+    CircleImageView SelectedImage;
     Button btnCamara, btnGalery, btnRegister;
     Uri uriCamera;
     EditText email, pass, username, userphone, usereps, userid, usersurname;
+    TextView txtPermission;
+
+    Bitmap Image;
+    OutputStream outputStream;
 
     public static String TAG = "LepsiApp";
     View login_tab_fragment;
@@ -82,7 +94,7 @@ public class Register extends AppCompatActivity {
 
     ActivityResultLauncher<String> getContentGallery = registerForActivityResult(
             new ActivityResultContracts.GetContent(),
-            result -> loadImage(result,0)
+            result -> loadImage(result,90)
     );
 
     ActivityResultLauncher<Uri> mGetContentCamera = registerForActivityResult(
@@ -90,10 +102,14 @@ public class Register extends AppCompatActivity {
             new ActivityResultCallback<Boolean>() {
                 @Override
                 public void onActivityResult(Boolean result) {
-                    //Load image on a view
-                    loadImage(uriCamera, 0);
+                    loadImage(uriCamera, 90);
                 }
             });
+    ActivityResultLauncher<String> saveImagePermission = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(),
+            result ->saveToInternalStorage(Image)
+    );
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,11 +122,13 @@ public class Register extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         btnGalery = findViewById(R.id.BtnGaleria);
         SelectedImage = findViewById(R.id.imageView);
+        txtPermission = findViewById(R.id.textPermissionSave);
         File file = new File(getFilesDir(), "picFromCamera");
         uriCamera = FileProvider.getUriForFile(this, 	getApplicationContext().getPackageName() + ".fileprovider", file);
 
         btnCamara.setOnClickListener(view -> mGetContentCamera.launch(uriCamera));
         btnGalery.setOnClickListener(view -> getContentGallery.launch("image/*"));
+        //btnGalery.setOnClickListener(view -> setSaveImagePermit());
 
 
 
@@ -120,8 +138,8 @@ public class Register extends AppCompatActivity {
         final InputStream imageStream;
         try {
             imageStream = getContentResolver().openInputStream(uri);
-            final Bitmap Image = BitmapFactory.decodeStream(imageStream);
-            SelectedImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            Image = BitmapFactory.decodeStream(imageStream);
+            //SelectedImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
             SelectedImage.setRotation(orient);
             SelectedImage.setImageBitmap(Image);
         } catch (FileNotFoundException e) {
@@ -129,7 +147,9 @@ public class Register extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     public void registrarPressed(View v){
+
         email=(EditText) findViewById(R.id.txtEmail);
         pass=(EditText) findViewById(R.id.txtPwd);
         username=(EditText) findViewById(R.id.txtName);
@@ -185,12 +205,12 @@ public class Register extends AppCompatActivity {
                                 if (task.isSuccessful()){
                                     //uploadImage();
                                     Toast.makeText(Register.this, "Registro existoso, por favor inicie sesión", Toast.LENGTH_SHORT).show();
+                                    setSaveImagePermit();
                                     mAuth.signOut();
                                     Intent intent = new Intent(Register.this, LoginActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                     finish();
-
                                 }
                             }
                         });
@@ -202,7 +222,48 @@ public class Register extends AppCompatActivity {
                 }
             });
         }
+
     }
+
+
+    private void setSaveImagePermit() {
+
+        saveImagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            saveToInternalStorage(Image);
+            txtPermission.setText("Imagen Guardada");
+        } else {
+            txtPermission.setText(R.string.PermissionSaveImage);
+        }
+    }
+
+
+    private void saveToInternalStorage(Bitmap bitmapImage){
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+
+        //(Android/data/packageName/files/)
+        File mypath = new File(getBaseContext().getExternalFilesDir(null), "profile.jpg");
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+
+
+
     private boolean validateForm(String emailS, String passwordS, String usernameS, String userSurnameS, String userPhoneS, String userEpsS, String userIdS)
     {
         boolean esValido=true;
