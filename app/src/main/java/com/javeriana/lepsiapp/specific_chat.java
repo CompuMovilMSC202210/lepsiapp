@@ -113,7 +113,7 @@ public class specific_chat extends Fragment {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.fragment_specific_chat);
 
             fotoperfil = (CircleImageView) findViewById(R.id.fotoperfil);
             nombre = (TextView) findViewById(R.id.nombre);

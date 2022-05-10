@@ -85,6 +85,39 @@
                 android:hint="Enviar" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/fotoperfil"
+                android:layout_width="48sp"
+                android:layout_height="48sp"
+                android:src="@android:drawable/sym_def_app_icon" />
+
+            <TextView
+                android:id="@+id/nombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Fredy"
+                android:textColor="#757575" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end|center">
+
+                <Button
+                    android:id="@+id/cerrarSesion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Cerrar Sesión" />
+            </LinearLayout>
+        </LinearLayout>
+
+
 
     </RelativeLayout>
 </FrameLayout>

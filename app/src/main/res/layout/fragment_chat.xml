@@ -8,7 +8,7 @@
     android:paddingLeft="30dp"
     android:paddingRight="30dp"
     android:background="@color/gris_claro"
-    tools:context=".specific_chat">
+    tools:context=".specific_chat$MainActivity">
 
 
     <RelativeLayout

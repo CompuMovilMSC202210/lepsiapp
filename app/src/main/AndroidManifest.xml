@@ -32,6 +32,9 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
+            android:name=".activity.RegistroContact"
+            android:exported="true" />
+        <activity
             android:name=".ui.login.LoginActivity"
             android:exported="true">
             <intent-filter>

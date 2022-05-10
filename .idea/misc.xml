@@ -3,18 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Sebastian/Documents/Aplicaciones/lepsiapp/app/src/main/res/drawable/ic_circle_background.xml" value="0.116" />
-        <entry key="..\:/Users/Sebastian/Documents/Aplicaciones/lepsiapp/app/src/main/res/drawable/ic_foto_perfil.xml" value="0.116" />
-        <entry key="..\:/Users/Sebastian/Documents/Aplicaciones/lepsiapp/app/src/main/res/layout-w936dp/activity_registro.xml" value="0.1" />
-        <entry key="..\:/Users/Sebastian/Documents/Aplicaciones/lepsiapp/app/src/main/res/layout-w936dp/fragment_mapsPatients.xml" value="0.15" />
-        <entry key="..\:/Users/Sebastian/Documents/Aplicaciones/lepsiapp/app/src/main/res/layout/activity_login.xml" value="0.14375" />
-        <entry key="..\:/Users/Sebastian/Documents/Aplicaciones/lepsiapp/app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="..\:/Users/Sebastian/Documents/Aplicaciones/lepsiapp/app/src/main/res/layout/activity_register.xml" value="0.25" />
-        <entry key="..\:/Users/Sebastian/Documents/Aplicaciones/lepsiapp/app/src/main/res/layout/fragment_homepatients.xml" value="0.1" />
-        <entry key="..\:/Users/Sebastian/Documents/Aplicaciones/lepsiapp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.14375" />
-        <entry key="..\:/Users/Sebastian/Documents/Aplicaciones/lepsiapp/app/src/main/res/menu/menu.xml" value="0.2" />
-        <entry key="..\:/Users/Sebastian/Documents/Aplicaciones/lepsiapp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.105" />
-        <entry key="..\:/Users/Sebastian/Documents/Aplicaciones/lepsiapp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.105" />
         <entry key="..\:/Users/jeigomez/AndroidStudioProjects/LepsiApp/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1" />
         <entry key="..\:/Users/jeigomez/AndroidStudioProjects/LepsiApp/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.11278447121820616" />
         <entry key="..\:/Users/jeigomez/AndroidStudioProjects/LepsiApp/app/src/main/res/layout-w936dp/activity_login.xml" value="0.131640625" />
@@ -44,6 +32,7 @@
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/drawable-v24/ic_logolepsiapp_blanco.xml" value="0.1" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/drawable-v24/round_edges.xml" value="0.102" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/drawable/bot_redon.xml" value="0.1735" />
+        <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/drawable/ic_avatar.xml" value="0.1" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/drawable/ic_chat.xml" value="0.1" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/drawable/ic_circle_background.xml" value="0.1395" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/drawable/ic_contacts.xml" value="0.1" />
@@ -71,23 +60,26 @@
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout-w936dp/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout-w936dp/activity_mainChat.xml" value="0.5" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout-w936dp/activity_main_chat.xml" value="0.22" />
+        <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout-w936dp/activity_registro.xml" value="0.1" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout-w936dp/card_view_mensajes.xml" value="0.153125" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/activity_help_information.xml" value="0.1" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/activity_login.xml" value="0.18" />
-        <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/activity_main.xml" value="0.140625" />
+        <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/activity_mainChat.xml" value="0.1" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/activity_password_recovery.xml" value="0.22" />
-        <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/activity_register.xml" value="0.2" />
+        <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/activity_register.xml" value="0.22" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/card_view_mensajes.xml" value="0.15" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/fragment_add_contact.xml" value="0.25" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/fragment_chat.xml" value="0.20119476318359375" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/fragment_dashboard.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/fragment_history.xml" value="0.20119476318359375" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/fragment_homepatients.xml" value="0.1213768115942029" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/fragment_notifications.xml" value="0.13632246376811594" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/fragment_specific_chat.xml" value="0.22" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/layout/histograma_cam.xml" value="0.1" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.22" />
+        <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/menu/menu.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1735" />
         <entry key="..\:/Users/willf/lepsiapp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2145" />
