@@ -1,5 +1,12 @@
 package com.javeriana.lepsiapp.activity;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -11,13 +18,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.javeriana.lepsiapp.AdapterMensajes;
@@ -41,7 +41,7 @@ import com.google.firebase.storage.UploadTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class mainActivity extends AppCompatActivity {
+public class chatActivity extends AppCompatActivity {
 
     private CircleImageView fotoperfil;
     private TextView nombre;
@@ -67,7 +67,7 @@ public class mainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.fragment_specific_chat);
 
         fotoperfil = (CircleImageView) findViewById(R.id.fotoperfil);
         nombre = (TextView) findViewById(R.id.nombre);
@@ -96,14 +96,7 @@ public class mainActivity extends AppCompatActivity {
                 txtMensaje.setText("");
             }
         });
-        cerrarSesion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                returnLogin();
 
-            }
-        });
 
         btnEnviarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,7 +199,7 @@ public class mainActivity extends AppCompatActivity {
             fotoReferencia.putFile(u).addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-              //  Uri u = taskSnapshot.getDownloadUrl();
+                    //  Uri u = taskSnapshot.getDownloadUrl();
                     MensajeEnviar m = new MensajeEnviar(NOMBRE_USUARIO+" te ha enviado a photo", u.toString(),NOMBRE_USUARIO,fotoperfilCadena,"2", ServerValue.TIMESTAMP);
                     databaseReference.push().setValue(m);
                 }
@@ -223,7 +216,7 @@ public class mainActivity extends AppCompatActivity {
                     fotoperfilCadena=u.toString();
                     MensajeEnviar m = new MensajeEnviar(NOMBRE_USUARIO+"ha actualizado su foto de perfil", u.toString(),NOMBRE_USUARIO,fotoperfilCadena,"2", ServerValue.TIMESTAMP);
                     databaseReference.push().setValue(m);
-                    Glide.with(mainActivity.this).load(u.toString()).into(fotoperfil);
+                    Glide.with(chatActivity.this).load(u.toString()).into(fotoperfil);
                 }
 
             });
@@ -253,13 +246,7 @@ public class mainActivity extends AppCompatActivity {
 
                 }
             });
-        } else {
-            returnLogin();
         }
     }
-    private void returnLogin(){
-        startActivity(new Intent(mainActivity.this, LoginActivity.class));
-        finish();
 
-    }
 }

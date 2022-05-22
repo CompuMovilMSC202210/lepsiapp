@@ -1,7 +1,5 @@
-package com.javeriana.lepsiapp.Entidades;
+package com.javeriana.lepsiapp.entidades;
 
-
-import com.javeriana.lepsiapp.Entidades.Mensaje;
 
 import java.util.Map;
 

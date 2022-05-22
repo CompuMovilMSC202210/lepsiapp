@@ -8,7 +8,7 @@
     android:paddingLeft="30dp"
     android:paddingRight="30dp"
     android:background="@color/gris_claro"
-    tools:context=".specific_chat$MainActivity">
+    tools:context=".ui.chat.ChatFragment">
 
 
     <RelativeLayout
@@ -45,47 +45,80 @@
             android:textSize="18sp" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvMensajes"
-            android:layout_width="346dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="150dp"
-            android:layout_below="@+id/textView2"
-            android:layout_marginTop="15dp">
-
-        </androidx.recyclerview.widget.RecyclerView>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="70dp">
-
-            <ImageButton
-                android:id="@+id/btnEnviarFoto"
-                android:layout_width="45dp"
-                android:layout_height="37dp"
-                android:layout_gravity="center"
-                android:background="@drawable/imagen" />
-
-            <EditText
-                android:id="@+id/txtMensaje"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:textSize="12sp"
-                android:hint="Escribe un mensaje"
-
-                />
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="70dp"
+            android:paddingTop="30dp"
+            android:layout_below="@id/textView2"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnEnviar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Enviar" />
-        </LinearLayout>
+                android:id="@+id/btnChat1"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/btnChat2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/btnChat3"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:text="Button" />
+
+        </LinearLayout><LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/textView2"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical"
+        android:layout_marginBottom="70dp">
+
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_avatar"
+            android:layout_marginTop="13dp"
+            android:layout_weight="1"
+            app:tint="@color/purpura_oscuro"/>
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_avatar"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            app:tint="@color/purpura_oscuro"/>
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_avatar"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            app:tint="@color/purpura_medio"/>
+    </LinearLayout>
+
 
 
     </RelativeLayout>
+
 </FrameLayout>

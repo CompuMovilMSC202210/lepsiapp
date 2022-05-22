@@ -1,10 +1,11 @@
-package com.javeriana.lepsiapp.Entidades;
+package com.javeriana.lepsiapp.entidades;
 
 
 public class ContactUsuario {
     private String nombre;
     private String correo;
-    private String tipo;
+    private String rol;
+    private String id;
     public ContactUsuario() {
     }
 
@@ -24,11 +25,15 @@ public class ContactUsuario {
         this.correo = correo;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getRol() { return rol; }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public String getId(){ return id; }
+
+    public void setId(String is) {
+        this.id = id;
     }
 }

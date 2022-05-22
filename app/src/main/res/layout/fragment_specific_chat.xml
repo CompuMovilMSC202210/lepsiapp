@@ -1,123 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="30dp"
-    android:paddingRight="30dp"
-    android:background="@color/gris_claro"
-    tools:context=".specific_chat">
+    tools:context=".activity.chatActivity"
+    android:padding="5dp"
+    android:orientation="vertical">
 
-
-    <RelativeLayout
-
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="5dp"
-        tools:context=".activity.mainActivity"
-        tools:ignore="MissingDefaultResource">
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="127dp"
-            android:layout_height="139dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="20dp"
-            android:contentDescription="@string/Select_device"
-            android:src="@drawable/ic_chat"
-            app:tint="@color/purpura_medio"/>
-
-
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="48sp"
+            android:layout_height="48sp"
+            android:id="@+id/fotoperfil"
+            android:src="@android:drawable/sym_def_app_icon" />
         <TextView
-            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:id="@+id/nombre"
+            android:layout_height="wrap_content"
+            android:text="Fredy"
+            android:layout_gravity="center" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end|center">
+            <Button
+                android:id="@+id/cerrarSesion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Cerrar Sesión" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMensajes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btnEnviarFoto"
+            android:layout_width="45dp"
+            android:layout_height="37dp"
+            android:layout_gravity="center"
+            android:background="@drawable/imagen" />
+
+        <EditText
+            android:id="@+id/txtMensaje"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Escribe un mensaje"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btnEnviar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imageView3"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="8dp"
-            android:text="@string/title_chat"
-            android:textColor="@color/purpura_oscuro"
-            android:fontFamily="@font/roboto"
-            android:textSize="18sp" />
+            android:hint="Enviar"
+            />
+    </LinearLayout>
 
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvMensajes"
-            android:layout_width="398dp"
-            android:layout_height="433dp"
-            android:layout_below="@+id/textView2"
-            android:layout_marginTop="15dp">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_alignParentBottom="true">
-
-            <ImageButton
-                android:id="@+id/btnEnviarFoto"
-                android:layout_width="45dp"
-                android:layout_height="37dp"
-                android:layout_gravity="center"
-                android:background="@drawable/imagen" />
-
-            <EditText
-                android:id="@+id/txtMensaje"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:textSize="12sp"
-                android:hint="Escribe un mensaje"
-
-                />
-
-            <Button
-                android:id="@+id/btnEnviar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Enviar" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/fotoperfil"
-                android:layout_width="48sp"
-                android:layout_height="48sp"
-                android:src="@android:drawable/sym_def_app_icon" />
-
-            <TextView
-                android:id="@+id/nombre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Fredy"
-                android:textColor="#757575" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end|center">
-
-                <Button
-                    android:id="@+id/cerrarSesion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Cerrar Sesión" />
-            </LinearLayout>
-        </LinearLayout>
-
-
-
-    </RelativeLayout>
-</FrameLayout>
+</LinearLayout>

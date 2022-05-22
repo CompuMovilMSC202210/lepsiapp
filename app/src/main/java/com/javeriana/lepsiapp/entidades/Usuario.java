@@ -1,9 +1,10 @@
-package com.javeriana.lepsiapp.Entidades;
+package com.javeriana.lepsiapp.entidades;
 
 
 public class Usuario {
     private String nombre;
     private String correo;
+    private String rol;
 
     public Usuario() {
     }
@@ -22,5 +23,11 @@ public class Usuario {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public String getRol() { return rol; }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 }

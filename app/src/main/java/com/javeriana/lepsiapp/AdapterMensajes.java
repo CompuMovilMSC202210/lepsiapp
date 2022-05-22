@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.javeriana.lepsiapp.Entidades.MensajeRecibir;
+import com.javeriana.lepsiapp.entidades.MensajeRecibir;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class AdapterMensajes extends RecyclerView.Adapter <HolderMensaje>{
     public void addMensaje(MensajeRecibir m){
         listMensaje.add(m);
         notifyItemInserted(listMensaje.size());
-}
+    }
 
 
     @NonNull

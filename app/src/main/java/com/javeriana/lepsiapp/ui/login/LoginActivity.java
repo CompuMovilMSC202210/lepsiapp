@@ -158,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
-                                    Toast.makeText(LoginActivity.this, "Se logeo correctamente", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "Se logueo correctamente", Toast.LENGTH_SHORT).show();
                                     homeViewActivity(v);
                                 } else {
                                     // If sign in fails, display a message to the user.
