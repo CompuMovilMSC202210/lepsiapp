@@ -32,9 +32,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.javeriana.lepsiapp.HelpInformation;
 import com.javeriana.lepsiapp.MainActivity;
+import com.javeriana.lepsiapp.MainContactActivity;
 import com.javeriana.lepsiapp.PasswordRecovery;
 import com.javeriana.lepsiapp.R;
 import com.javeriana.lepsiapp.Register;
@@ -56,6 +61,9 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     ProgressDialog progressDialog;
     SharedPreferences sharedPreference;
+
+    DatabaseReference mDatabase;
+    private String uid;
 
     TextView forgotpassword;
     @Override
@@ -158,7 +166,7 @@ public class LoginActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
-                                    Toast.makeText(LoginActivity.this, "Se logeo correctamente", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "Se logueo correctamente", Toast.LENGTH_SHORT).show();
                                     homeViewActivity(v);
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -211,7 +219,39 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void homeViewActivity(View v){
-        startActivity(new Intent(this, MainActivity.class));
+
+        // Obtener ID usuario logueado
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+
+            uid = user.getUid();
+        }
+
+        // firebease llama a  roll
+        mDatabase= FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Usuarios").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+
+                    //
+                    //String rol_fire ="paciente";
+                    String rol_fire = snapshot.child("rol").getValue().toString();
+
+
+
+                    iniciarActividad(rol_fire);
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
     public void registerViewActivity(View v){
         startActivity(new Intent(this, Register.class));
@@ -222,5 +262,26 @@ public class LoginActivity extends AppCompatActivity {
     public void recoveryPwdViewActivity(View v){
         startActivity(new Intent(this, PasswordRecovery.class));
     }
+
+    public void iniciarActividad(String r) {
+
+
+        Toast.makeText(LoginActivity.this,r, Toast.LENGTH_LONG).show();
+
+
+        if (r.equals("paciente")) {
+
+
+            startActivity(new Intent(this, MainActivity.class));
+        }
+        if (r.equals("contacto")) {
+
+            startActivity(new Intent(this, MainContactActivity.class));
+
+        }
+
+    }
+
+
 
 }

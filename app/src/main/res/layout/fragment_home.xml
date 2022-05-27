@@ -53,11 +53,11 @@
             tools:visibility="invisible" />
     </TableRow>
     <ImageButton
-        android:id="@+id/btnAyudaMain"
+        android:id="@+id/btnVoyMain"
         android:paddingBottom="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_boton_help"
+        android:src="@drawable/ic_botonvoy"
         android:layout_gravity="bottom|center"
         android:background="@drawable/ic_circle_background"
         tools:ignore="SpeakableTextPresentCheck"/>

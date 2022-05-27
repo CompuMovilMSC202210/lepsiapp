@@ -30,11 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        txtCorreo = (EditText) findViewById(R.id.idCorreoLogin);
-        txtContraseña = (EditText) findViewById(R.id.idContraseñaLogin);
-        btnLogin = (Button) findViewById(R.id.idLoginLogin);
-        btnRegistro = (Button) findViewById(R.id.idRegistroLogin);
+
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -54,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
                                         nexActivity();
                                     } else {
                                         // If sign in fails, display a message to the user.
-                                            Toast.makeText(LoginActivity.this, "Error, credenciales incorrectas", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "Error, credenciales incorrectas", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -66,13 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         });
         //Registrarse
 
-        btnRegistro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this,RegistroActivity.class));
 
-            }
-        });
 
 
 
@@ -83,9 +73,9 @@ public class LoginActivity extends AppCompatActivity {
     public boolean validarContraseña() {
         String contraseña;
         contraseña = txtContraseña.getText().toString();
-            if (contraseña.length()>=6 && contraseña.length()<=16){
-                return true;
-            }else return false;
+        if (contraseña.length()>=6 && contraseña.length()<=16){
+            return true;
+        }else return false;
 
     }
     //verficar que el usuario se ha logeado anteriormente

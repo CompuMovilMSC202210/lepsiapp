@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_home1">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.javeriana.lepsiapp.ui.home.HomeFragment"
+        android:id="@+id/navigation_home1"
+        android:name="com.javeriana.lepsiapp.ui.homePatients.HomePatientsFragment"
         android:fontFamily="@font/antic_didone"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/home_patients_fragment" />
 
 
     <fragment

@@ -196,7 +196,7 @@ public class MapsPatientsFragment extends Fragment {
         orientacionx= binding.txtOrix;
         luxometro =binding.txtLux;
 
-        btHeld = binding.btnAyudaMain;
+        btHeld = binding.btnVoyMain;
         txt_permission =binding.textPermission;
 
         mapController = map.getController();

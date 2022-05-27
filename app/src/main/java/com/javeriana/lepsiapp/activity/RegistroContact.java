@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.javeriana.lepsiapp.Entidades.ContactUsuario;
+import com.javeriana.lepsiapp.entidades.ContactUsuario;
 import com.javeriana.lepsiapp.R;
 
 public class RegistroContact extends AppCompatActivity {
@@ -56,7 +55,7 @@ public class RegistroContact extends AppCompatActivity {
                 String correo = txtContactoEmail.getText().toString();
                 String telefono = txtContactoPhone.getText().toString();
                 String Contraseña ="Lepsiapp2022";
-                String Tipo ="Contacto";
+                String rol ="contacto";
 
                 if (isValidEmail(correo)&& validarId(id) && validarName(nombre)&& validartelefono(telefono)) {
                      mAuth.createUserWithEmailAndPassword(correo, Contraseña)
@@ -69,7 +68,8 @@ public class RegistroContact extends AppCompatActivity {
                                         ContactUsuario usuario = new ContactUsuario();
                                         usuario.setCorreo(correo);
                                         usuario.setNombre(nombre);
-                                        usuario.setTipo(Tipo);
+                                        usuario.setRol(rol);
+                                        usuario.setId(id);
                                         FirebaseUser currentUser = mAuth.getCurrentUser();
                                         DatabaseReference reference = database.getReference("Usuarios/"+currentUser.getUid());
                                         reference.setValue(usuario);

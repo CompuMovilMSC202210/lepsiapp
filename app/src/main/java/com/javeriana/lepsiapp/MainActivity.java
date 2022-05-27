@@ -1,30 +1,82 @@
 package com.javeriana.lepsiapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toolbar;
+import android.widget.Toast;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.widget.Button;
+import android.widget.Toast;
 
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.android.material.appbar.MaterialToolbar;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
 import com.javeriana.lepsiapp.activity.LoginActivity;
+import com.javeriana.lepsiapp.activity.RegistroContact;
 import com.javeriana.lepsiapp.databinding.ActivityMainBinding;
+import com.javeriana.lepsiapp.entidades.Usuario;
+
+import com.google.firebase.FirebaseApp;
+
+import com.javeriana.lepsiapp.data.model.arreglocont;
+
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
-    MaterialToolbar topBar;
+    Toolbar toolbarL;
+
+
+
+
+    private SensorManager sm;
+    private Sensor s;
+    private SensorEventListener evento;
+    private int mov=0;
+    Button btonayuda;
+    int sevento=1;
+    SimpleDateFormat fechaact;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+
+
 
     private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference mDatabase;
+    private StorageReference storageReference;
     private String NOMBRE_USUARIO;
+    private String rolval;
+    private String uid;
+    FirebaseUser firebaseUser;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,37 +85,99 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Obtener ID usuario logueado
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
+        toolbarL = findViewById(R.id.barratool);
+        setSupportActionBar(toolbarL);
+
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications, R.id.navigation_chat, R.id.navigation_history)
+                R.id.navigation_home1, R.id.navigation_dashboard, R.id.navigation_notifications, R.id.navigation_chat, R.id.navigation_history)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        topBar = findViewById(R.id.topmenu);
+
+
         mAuth = FirebaseAuth.getInstance();
 
-        topBar.setOnMenuItemClickListener(new androidx.appcompat.widget.Toolbar.OnMenuItemClickListener() {
+        //Acelerometro
+        inicializarFirebase();
+
+        sm=(SensorManager) getSystemService(Context.SENSOR_SERVICE);//Acceder a los sensores
+        s=sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);//Valor acelerometro
+        if(s==null){
+            Toast myToast = Toast.makeText(MainActivity.this, String.valueOf("No tiene acelerometro"), Toast.LENGTH_SHORT);
+            myToast.show();
+        }
+        evento=new SensorEventListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case (R.id.LoGout):
-                        logOut();
-                        return true;
-                    case (R.id.Help):
-                        help();
-                        return true;
-                    case (R.id.Profile):
-                        //profile();
-                        return true;
+            public void onSensorChanged(SensorEvent sensorEvent) {
+                //evento que se genera con el acelerometro
+                if(sensorEvent.values[0]<=-6&&mov==0) {
+                    mov++;
+                }else{
+                    if(sensorEvent.values[0]<=6&&mov==1) {
+                        mov++;
+                    } else {if (sensorEvent.values[1]<=6&&mov==2){
+                        mov++;
+                        System.out.println(mov);
+                    }else {if (sensorEvent.values[1]<=-6&&mov==3){
+                        mov++;
+                        System.out.println(mov);
+                    }}}
                 }
-                return false;
+                if (mov==4){
+                    mov=0;
+                    fechaact= new SimpleDateFormat("dd/MM/yyyy h:mm a");
+                    Date date = new Date();
+                    String dateToStr = fechaact.format(date);
+                    String sumevento = Integer.toString(sevento);
+                    String fun="Sensor";
+                    com.javeriana.lepsiapp.data.model.arreglocont a= new arreglocont(sumevento, dateToStr, fun);
+                    a.setUid(UUID.randomUUID().toString());
+                    a.setEvento(sumevento);
+                    a.setFecha(dateToStr);
+                    a.setFuente(fun);
+                    databaseReference.child("arreglocont").child(a.getUid()).setValue(a);
+                    sevento++;
+                    System.out.println("_______________");
+                }
             }
-        });
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int i) {
+            }
+        };
+        sm.registerListener(evento,s,SensorManager.SENSOR_DELAY_NORMAL);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+
+        switch (item.getItemId()) {
+            case (R.id.LoGout):
+                logOut();
+                return true;
+            case (R.id.Help):
+                help();
+                return true;
+            case (R.id.Profile):
+                //profile();
+                return true;
+        }
+        return false;
+    }
+
+
 
 
     public void logOut() {
@@ -81,6 +195,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void inicializarFirebase() {
+        FirebaseApp.initializeApp(this);
+        firebaseDatabase= FirebaseDatabase.getInstance();
+        databaseReference=firebaseDatabase.getReference();
+    }
 
 }
 

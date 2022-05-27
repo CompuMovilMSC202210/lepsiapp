@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +48,11 @@ import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.javeriana.lepsiapp.R;
+import com.javeriana.lepsiapp.data.model.arreglocont;
 import com.javeriana.lepsiapp.databinding.FragmentHomeBinding;
 
 import org.osmdroid.api.IMapController;
@@ -67,7 +72,10 @@ import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.TilesOverlay;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.UUID;
 
 
 public class HomeFragment extends Fragment {
@@ -136,6 +144,12 @@ public class HomeFragment extends Fragment {
     boolean markerstatus =false;
 
     int zoom;
+    private int mov=0;
+    Button btonayuda;
+    int sevento=1;
+    SimpleDateFormat fechaact;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
 
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -196,7 +210,7 @@ public class HomeFragment extends Fragment {
         orientacionx= binding.txtOrix;
         luxometro =binding.txtLux;
 
-        btHeld = binding.btnAyudaMain;
+        btHeld = binding.btnVoyMain;
         txt_permission =binding.textPermission;
 
         mapController = map.getController();
@@ -212,6 +226,7 @@ public class HomeFragment extends Fragment {
 
         getLocationPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION);
         checkLocationSettings();
+        inicializarFirebase();
 
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
 
@@ -293,6 +308,24 @@ public class HomeFragment extends Fragment {
                     gps_geo = person1;
                     markerstatus = true;
 
+                    //Boton de ayuda
+                    fechaact= new SimpleDateFormat("dd/MM/yyyy h:mm a");
+                    Date date = new Date();
+                    String dateToStr = fechaact.format(date);
+                    String sumevento = Integer.toString(sevento);
+                    String fun="Boton";
+                    arreglocont a= new arreglocont(sumevento, dateToStr, fun);
+                    a.setUid(UUID.randomUUID().toString());
+                    a.setEvento(sumevento);
+                    a.setFecha(dateToStr);
+                    a.setFuente(fun);
+                    Toast myToast = Toast.makeText(getContext(), String.valueOf("Boton"), Toast.LENGTH_SHORT);
+                    myToast.show();
+                    System.out.println(sumevento);
+                    System.out.println(fun);
+                    databaseReference.child("arreglocont").child(a.getUid()).setValue(a);
+                    sevento++;
+
         }
         );
 
@@ -304,6 +337,14 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
+
+
+    private void inicializarFirebase() {
+        FirebaseApp.initializeApp(getContext());
+        firebaseDatabase= FirebaseDatabase.getInstance();
+        databaseReference=firebaseDatabase.getReference();
+    }
+
 
     private MapEventsOverlay createOverlayEvents() {
         MapEventsOverlay overlayEventos = new MapEventsOverlay(new MapEventsReceiver() {

@@ -128,7 +128,7 @@
 
     <Button
         android:id="@+id/btnContacRegister"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
@@ -137,8 +137,7 @@
         android:text="@string/action_register"
         android:textColor="@color/ocre_claro"
         android:textSize="22sp"
-        app:backgroundTint="@null"
-         />
+        app:backgroundTint="@null" />
 
 
 

@@ -1,7 +1,4 @@
-package com.javeriana.lepsiapp.Entidades;
-
-
-import com.javeriana.lepsiapp.Entidades.Mensaje;
+package com.javeriana.lepsiapp.entidades;
 
 
 public class MensajeRecibir extends Mensaje {

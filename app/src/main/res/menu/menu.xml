@@ -12,5 +12,6 @@
     <item
         android:id="@+id/LoGout"
         android:icon="@drawable/ic_logout"
-        android:title="Salir" />
+        android:title="Salir"
+        />
 </menu>

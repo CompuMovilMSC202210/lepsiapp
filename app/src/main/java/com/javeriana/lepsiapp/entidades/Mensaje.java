@@ -1,4 +1,4 @@
-package com.javeriana.lepsiapp.Entidades;
+package com.javeriana.lepsiapp.entidades;
 
 public class Mensaje {
     private String mensaje;
