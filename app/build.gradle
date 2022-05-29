@@ -59,6 +59,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:10.2.6' //Base de Datos
     implementation 'com.google.firebase:firebase-storage:10.2.6'  //Base de Archivos
 
+    implementation 'com.firebaseui:firebase-ui-database:8.0.1'  //para hacer la lista
+
 
 
     //Agregados

@@ -243,7 +243,7 @@ public class mainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     Usuario usuario = snapshot.getValue(Usuario.class); //cambio dataSnapshot por snapshot
-                    NOMBRE_USUARIO = usuario.getNombre();
+                    NOMBRE_USUARIO = usuario.getUserName();
                     nombre.setText(NOMBRE_USUARIO);
                     btnEnviar.setEnabled(true);
                 }

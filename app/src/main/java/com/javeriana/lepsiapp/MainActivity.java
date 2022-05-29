@@ -74,7 +74,9 @@ public class MainActivity extends AppCompatActivity {
     private String NOMBRE_USUARIO;
     private String rolval;
     private String uid;
+    private String UidMain;
     FirebaseUser firebaseUser;
+
 
 
 
@@ -85,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+
         // Obtener ID usuario logueado
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -93,10 +97,13 @@ public class MainActivity extends AppCompatActivity {
         toolbarL = findViewById(R.id.barratool);
         setSupportActionBar(toolbarL);
 
+
+
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home1, R.id.navigation_dashboard, R.id.navigation_notifications, R.id.navigation_chat, R.id.navigation_history)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 

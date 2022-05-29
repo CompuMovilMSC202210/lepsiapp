@@ -37,6 +37,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.javeriana.lepsiapp.GlobalVar;
 import com.javeriana.lepsiapp.HelpInformation;
 import com.javeriana.lepsiapp.MainActivity;
 import com.javeriana.lepsiapp.MainContactActivity;
@@ -224,12 +225,13 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
 
-            uid = user.getUid();
+            //uid = user.getUid();
+            GlobalVar.UidMain=user.getUid();
         }
 
         // firebease llama a  roll
         mDatabase= FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Usuarios").child(uid).addValueEventListener(new ValueEventListener() {
+        mDatabase.child("Usuarios").child(GlobalVar.UidMain).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
@@ -271,8 +273,11 @@ public class LoginActivity extends AppCompatActivity {
 
         if (r.equals("paciente")) {
 
+            Intent intent =new Intent(this, MainActivity.class);
+            intent.putExtra("UidMain",uid);
 
-            startActivity(new Intent(this, MainActivity.class));
+
+            startActivity(intent);
         }
         if (r.equals("contacto")) {
 

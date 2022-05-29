@@ -2,27 +2,27 @@ package com.javeriana.lepsiapp.entidades;
 
 
 public class Usuario {
-    private String nombre;
-    private String correo;
+    private String userName;
+    private String email;
     private String rol;
 
     public Usuario() {
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getRol() { return rol; }

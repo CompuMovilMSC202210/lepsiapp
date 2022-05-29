@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.javeriana.lepsiapp.GlobalVar;
 import com.javeriana.lepsiapp.entidades.ContactUsuario;
 import com.javeriana.lepsiapp.R;
 
@@ -27,6 +28,7 @@ public class RegistroContact extends AppCompatActivity {
     private Button btnRegistrar;
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
+
 
 
 
@@ -50,25 +52,30 @@ public class RegistroContact extends AppCompatActivity {
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String nombre = txtContactoNombre.getText().toString();
+                String userName = txtContactoNombre.getText().toString();
                 String id = txtContactoId.getText().toString();
-                String correo = txtContactoEmail.getText().toString();
-                String telefono = txtContactoPhone.getText().toString();
-                String Contraseña ="Lepsiapp2022";
+                String email = txtContactoEmail.getText().toString();
+                String userPhone = txtContactoPhone.getText().toString();
+                String password ="Lepsiapp2022";
                 String rol ="contacto";
+                String pacid="";
 
-                if (isValidEmail(correo)&& validarId(id) && validarName(nombre)&& validartelefono(telefono)) {
-                     mAuth.createUserWithEmailAndPassword(correo, Contraseña)
+
+                if (isValidEmail(email)&& validarId(id) && validarName(userName)&& validartelefono(userPhone)) {
+                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(RegistroContact.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
+
                                         // Sign in success, update UI with the signed-in user's information
                                         Toast.makeText(RegistroContact.this,"Se registro correctamente", Toast.LENGTH_SHORT).show();
                                         ContactUsuario usuario = new ContactUsuario();
-                                        usuario.setCorreo(correo);
-                                        usuario.setNombre(nombre);
+                                        usuario.setEmail(email);
+                                        usuario.setUserName(userName);
+                                        usuario.setUserPhone(userPhone);
                                         usuario.setRol(rol);
+                                        usuario.setPacId(GlobalVar.UidMain);
                                         usuario.setId(id);
                                         FirebaseUser currentUser = mAuth.getCurrentUser();
                                         DatabaseReference reference = database.getReference("Usuarios/"+currentUser.getUid());
