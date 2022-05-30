@@ -42,7 +42,6 @@ public class History extends Fragment {
         hist_list_even.setLayoutManager(linearLayoutManager);
         Query query = FirebaseDatabase.getInstance().getReference()
                 .child("historial").child(GlobalVar.UidMain);
-        System.out.println(query);
 
         FirebaseRecyclerOptions< arreglocont > options =
                 new FirebaseRecyclerOptions.Builder<arreglocont>()
@@ -63,9 +62,12 @@ public class History extends Fragment {
                 holder.getIdfecha_histo().setText(m.getFecha());
                 holder.getIdsensor_hist().setText(m.getFuente());
                 holder.getIdcont_histo().setText(m.getEvento());
-            }
-
-
+                int suma=Integer.parseInt(m.getUid());
+                GlobalVar.sevento=suma;
+                System.out.println("************************************************");
+                System.out.println(GlobalVar.sevento);
+                System.out.println("************************************************");
+                }
         };
         hist_list_even.setAdapter(adapter);
 

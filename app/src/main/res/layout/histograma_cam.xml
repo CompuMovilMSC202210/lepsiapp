@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="10dp">
 
     <TextView
         android:id="@+id/idcont_histo"
@@ -19,7 +21,7 @@
         android:layout_height="50dp"
         android:textSize="15sp"
         android:gravity="center"
-        android:layout_weight="4"
+        android:layout_weight="3.5"
         android:text="TextView" />
 
     <ImageView
@@ -33,7 +35,7 @@
         android:id="@+id/idfecha_histo"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_weight="4"
+        android:layout_weight="4.5"
         android:gravity="center"
         android:textSize="15sp"
         android:text="TextView" />
