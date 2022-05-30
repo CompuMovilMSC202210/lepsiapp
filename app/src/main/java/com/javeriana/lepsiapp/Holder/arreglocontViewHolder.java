@@ -24,7 +24,7 @@ public class arreglocontViewHolder extends RecyclerView.ViewHolder {
 
     public arreglocontViewHolder(@NonNull  View itemView) {
         super(itemView);
-        idcont_histo=itemView.findViewById(R.id.idfecha_histo);
+        idcont_histo=itemView.findViewById(R.id.idcont_histo);
         idsensor_hist=itemView.findViewById(R.id.idsensor_hist);
         idfecha_histo=itemView.findViewById(R.id.idfecha_histo);
     }

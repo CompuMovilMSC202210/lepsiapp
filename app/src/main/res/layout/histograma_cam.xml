@@ -2,16 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="10dp">
 
     <TextView
         android:id="@+id/idcont_histo"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:textSize="15sp"
+        android:layout_weight="0.1"
         android:gravity="center"
-        android:layout_weight="1"
-        android:text="TextView"/>
+        android:text="TextView"
+        android:textSize="15sp"
+        android:textColor="@color/gris_claro"/>
 
     <TextView
         android:id="@+id/idsensor_hist"
@@ -19,21 +22,22 @@
         android:layout_height="50dp"
         android:textSize="15sp"
         android:gravity="center"
-        android:layout_weight="4"
-        android:text="TextView" />
+        android:layout_weight="3"
+        android:text="TextView"
+        />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_weight="1"
+        android:layout_weight="1.4"
         app:srcCompat="@drawable/ic_histogra_graf" />
 
     <TextView
         android:id="@+id/idfecha_histo"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_weight="4"
+        android:layout_weight="5.5"
         android:gravity="center"
         android:textSize="15sp"
         android:text="TextView" />

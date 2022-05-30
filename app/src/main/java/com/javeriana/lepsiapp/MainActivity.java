@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
                     fechaact= new SimpleDateFormat("dd/MM/yyyy h:mm a");
                     Date date = new Date();
                     String dateToStr = fechaact.format(date);
-                    String sumevento = Integer.toString(sevento);
+                    String sumevento = Integer.toString(GlobalVar.sevento);
                     String fun="Sensor";
                     String Ubicacion=String.valueOf(startPoint);
                     arreglocont a= new arreglocont();
@@ -189,8 +189,9 @@ public class MainActivity extends AppCompatActivity {
                     a.setFecha(dateToStr);
                     a.setFuente(fun);
                     a.setUserid(GlobalVar.UidMain);
+                    a.setUbica(Ubicacion);
                     databaseReference.child("historial").child(GlobalVar.UidMain).child(a.getUid()).setValue(a);
-                    sevento++;
+                    GlobalVar.sevento++;
                     System.out.println("_______________");
                 }
             }
