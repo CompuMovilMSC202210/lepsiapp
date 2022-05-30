@@ -1,7 +1,10 @@
 package com.javeriana.lepsiapp;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,36 +14,39 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.widget.Button;
-import android.widget.Toast;
 
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.javeriana.lepsiapp.activity.LoginActivity;
-import com.javeriana.lepsiapp.activity.RegistroContact;
 import com.javeriana.lepsiapp.databinding.ActivityMainBinding;
-import com.javeriana.lepsiapp.entidades.Usuario;
 
 import com.google.firebase.FirebaseApp;
 
 import com.javeriana.lepsiapp.data.model.arreglocont;
 
+
+import org.osmdroid.util.GeoPoint;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -65,6 +71,11 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
+    FusedLocationProviderClient fusedLocalizacion;
+    String platitud;
+    String plongitud;
+    GeoPoint startPoint;
+
 
 
     private FirebaseAuth mAuth;
@@ -77,7 +88,24 @@ public class MainActivity extends AppCompatActivity {
     private String UidMain;
     FirebaseUser firebaseUser;
 
+    ActivityResultLauncher<String> getpermisolocal = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(),
+            new ActivityResultCallback<Boolean>() {
+                @Override
+                public void onActivityResult(Boolean result) {
+                    if(result){
+                        System.out.println("Se dieron los permisos");
+                        starLocationUpdates();
 
+                    }else {
+                        //denied
+                        System.out.println("No se dieron los permisos");
+                        //mapView.setText("No hay permisos para la localización");
+
+                    }
+                }
+            }
+    );
 
 
     @Override
@@ -110,6 +138,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
+        //******Permisos de locación***********
+        fusedLocalizacion= LocationServices.getFusedLocationProviderClient(this);
+        getpermisolocal.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+        //******************************************
+
+
+
 
         //Acelerometro
         inicializarFirebase();
@@ -123,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         evento=new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent sensorEvent) {
-                //evento que se genera con el acelerometro
+                //Evento que se genera con el acelerometro
                 if(sensorEvent.values[0]<=-6&&mov==0) {
                     mov++;
                 }else{
@@ -144,12 +179,14 @@ public class MainActivity extends AppCompatActivity {
                     String dateToStr = fechaact.format(date);
                     String sumevento = Integer.toString(sevento);
                     String fun="Sensor";
-                    com.javeriana.lepsiapp.data.model.arreglocont a= new arreglocont(sumevento, dateToStr, fun);
+                    String Ubicacion=String.valueOf(startPoint);
+                    arreglocont a= new arreglocont();
                     a.setUid(UUID.randomUUID().toString());
                     a.setEvento(sumevento);
                     a.setFecha(dateToStr);
                     a.setFuente(fun);
-                    databaseReference.child("arreglocont").child(a.getUid()).setValue(a);
+                    a.setUserid(GlobalVar.UidMain);
+                    databaseReference.child("historial").child(GlobalVar.UidMain).child(a.getUid()).setValue(a);
                     sevento++;
                     System.out.println("_______________");
                 }
@@ -206,6 +243,19 @@ public class MainActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         firebaseDatabase= FirebaseDatabase.getInstance();
         databaseReference=firebaseDatabase.getReference();
+    }
+    private void starLocationUpdates(){
+        if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            fusedLocalizacion.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    platitud=String.valueOf(location.getLatitude());
+                    plongitud=String.valueOf(location.getLongitude());
+                    startPoint  =  new GeoPoint(location.getLatitude(), location.getLongitude());
+                }
+            });
+
+        }
     }
 
 }

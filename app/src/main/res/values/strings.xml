@@ -10,6 +10,7 @@
     <string name="title_chat">Chat</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="user">Usuario:</string>
+    <string name="userlog">Usuario</string>
     <string name="contact">Contacto:</string>
     <string name="prompt_email">Email:</string>
     <string name="prompt_password">Clave</string>
