@@ -180,11 +180,11 @@ public class MainActivity extends AppCompatActivity {
                     fechaact= new SimpleDateFormat("dd/MM/yyyy h:mm a");
                     Date date = new Date();
                     String dateToStr = fechaact.format(date);
-                    String sumevento = String.valueOf(GlobalVar.sevento);
+                    String sumevento = Integer.toString(GlobalVar.sevento);
                     String fun="Sensor";
                     String Ubicacion=String.valueOf(startPoint);
                     arreglocont a= new arreglocont();
-                    a.setUid(sumevento);
+                    a.setUid(UUID.randomUUID().toString());
                     a.setEvento(sumevento);
                     a.setFecha(dateToStr);
                     a.setFuente(fun);

@@ -105,7 +105,7 @@ public class HomePatientsFragment extends Fragment {
             String fun="Boton";
             String Ubicacion=String.valueOf(startPoint);
             arreglocont a= new arreglocont();
-            a.setUid(sumevento);
+            a.setUid(UUID.randomUUID().toString());
             a.setEvento(sumevento);
             a.setFecha(dateToStr);
             a.setFuente(fun);
