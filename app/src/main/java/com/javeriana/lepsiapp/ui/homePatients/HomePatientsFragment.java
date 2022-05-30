@@ -84,7 +84,7 @@ public class HomePatientsFragment extends Fragment {
     GeoPoint startPoint;
 
 
-    //******Si se dieron los permisos***********
+    //******Si se dieron los permisos**********
     ActivityResultLauncher<String> getpermisolocal = registerForActivityResult(
             new ActivityResultContracts.RequestPermission(),
             new ActivityResultCallback<Boolean>() {
