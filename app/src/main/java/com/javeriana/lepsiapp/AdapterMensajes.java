@@ -5,63 +5,73 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.javeriana.lepsiapp.Entidades.MensajeRecibir;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import com.javeriana.lepsiapp.entidades.Logica.LMensaje;
+import com.javeriana.lepsiapp.entidades.Logica.LUsuario;
+import com.javeriana.lepsiapp.Holder.MensajeriaHolder;
+import com.javeriana.lepsiapp.Persistencia.UsuarioDAO;
 
-public class AdapterMensajes extends RecyclerView.Adapter <HolderMensaje>{
+import org.ocpsoft.prettytime.PrettyTime;
 
-    private List<MensajeRecibir> listMensaje = new ArrayList<>();
+
+public class AdapterMensajes extends RecyclerView.Adapter<MensajeriaHolder> {
+
+    private List<LMensaje> listMensaje = new ArrayList<>();
     private Context c;
-
     public AdapterMensajes(Context c) {
         this.c = c;
     }
 
-    public void addMensaje(MensajeRecibir m){
-        listMensaje.add(m);
+    public int addMensaje(LMensaje lMensaje){
+        listMensaje.add(lMensaje);
+        //3 mensajes
+        int posicion = listMensaje.size()-1;//3
         notifyItemInserted(listMensaje.size());
-}
+        return posicion;
+    }
+
+    public void actualizarMensaje(int posicion,LMensaje lMensaje){
+        listMensaje.set(posicion,lMensaje);//2
+        notifyItemChanged(posicion);
+    }
 
 
-    @NonNull
     @Override
-    public HolderMensaje onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(c).inflate(R.layout.card_view_mensajes,parent,false);
-        return new HolderMensaje(v);
+    public MensajeriaHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view;
+        if(viewType==1){
+            view = LayoutInflater.from(c).inflate(R.layout.card_view_mensajes_emisor,parent,false);
+        }else{
+            view = LayoutInflater.from(c).inflate(R.layout.card_view_mensajes_receptor,parent,false);
+        }
+        return new MensajeriaHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HolderMensaje holder, int position) {
-        holder.getNombre().setText(listMensaje.get(position).getNombre());
-        holder.getMensaje().setText(listMensaje.get(position).getMensaje());
-        if (listMensaje.get(position).getType_mensaje().equals("2")){
+    public void onBindViewHolder(MensajeriaHolder holder, int position) {
+
+        LMensaje lMensaje = listMensaje.get(position);
+        LUsuario lUsuario = lMensaje.getlUsuario();
+        if(lUsuario!=null){
+            holder.getNombre().setText(lUsuario.getUsuario().getUserName());
+            Glide.with(c).load(lUsuario.getUsuario().getFotoPerfilURL()).into(holder.getFotoMensajePerfil());
+        }
+
+        holder.getMensaje().setText(lMensaje.getMensaje().getMensaje());
+        if(lMensaje.getMensaje().isContieneFoto()){
             holder.getFotoMensaje().setVisibility(View.VISIBLE);
             holder.getMensaje().setVisibility(View.VISIBLE);
-            Glide.with(c).load(listMensaje.get(position).getUrlFoto()).into(holder.getFotoMensaje());
-
-        }else if (listMensaje.get(position).getType_mensaje().equals("1")){
-            holder.getMensaje().setVisibility(View.GONE);
+            Glide.with(c).load(lMensaje.getMensaje().getUrlFoto()).into(holder.getFotoMensaje());
+        }else {
+            holder.getFotoMensaje().setVisibility(View.GONE);
             holder.getMensaje().setVisibility(View.VISIBLE);
         }
-        if (listMensaje.get(position).getFotoPerfil().isEmpty()) {
-            holder.getFotoMensaje().setImageResource(R.mipmap.ic_launcher);
-        }else {
-            Glide.with(c).load(listMensaje.get(position).getFotoPerfil()).into(holder.getFotoMensajePerfil());
-        }
-        Long codigoHora = listMensaje.get(position).getHora();
-        Date d = new Date(codigoHora);
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a"); //a pm o am
-        holder.getHora().setText(sdf.format(d));
 
-
+        //holder.getHora().setText(lMensaje.fechaDeCreacionDelMensaje());
     }
 
     @Override
@@ -69,8 +79,17 @@ public class AdapterMensajes extends RecyclerView.Adapter <HolderMensaje>{
         return listMensaje.size();
     }
 
-    private class mensaje {
+    @Override
+    public int getItemViewType(int position) {
+        if(listMensaje.get(position).getlUsuario()!=null){
+            if(listMensaje.get(position).getlUsuario().getKey().equals(UsuarioDAO.getInstancia().getKeyUsuario())){
+                return 1;
+            }else{
+                return -1;
+            }
+        }else{
+            return -1;
+        }
+        //return super.getItemViewType(position);
     }
-
 }
-

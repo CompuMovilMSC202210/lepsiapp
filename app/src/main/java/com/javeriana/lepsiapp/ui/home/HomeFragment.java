@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +48,12 @@ import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.javeriana.lepsiapp.GlobalVar;
 import com.javeriana.lepsiapp.R;
+import com.javeriana.lepsiapp.data.model.arreglocont;
 import com.javeriana.lepsiapp.databinding.FragmentHomeBinding;
 
 import org.osmdroid.api.IMapController;
@@ -67,7 +73,10 @@ import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.TilesOverlay;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.UUID;
 
 
 public class HomeFragment extends Fragment {
@@ -136,6 +145,12 @@ public class HomeFragment extends Fragment {
     boolean markerstatus =false;
 
     int zoom;
+    private int mov=0;
+    Button btonayuda;
+    int sevento=1;
+    SimpleDateFormat fechaact;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
 
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -196,7 +211,7 @@ public class HomeFragment extends Fragment {
         orientacionx= binding.txtOrix;
         luxometro =binding.txtLux;
 
-        btHeld = binding.btnAyudaMain;
+        btHeld = binding.btnVoyMain;
         txt_permission =binding.textPermission;
 
         mapController = map.getController();
@@ -212,6 +227,7 @@ public class HomeFragment extends Fragment {
 
         getLocationPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION);
         checkLocationSettings();
+        inicializarFirebase();
 
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
 
@@ -261,7 +277,7 @@ public class HomeFragment extends Fragment {
                     orientations[2] = orientations[2] + 360;
                 }
 
-               //orientacionx.setText(String.valueOf(orientations[0]));
+                //orientacionx.setText(String.valueOf(orientations[0]));
                 map.setMapOrientation(orientations[0]);
             }
 
@@ -272,28 +288,52 @@ public class HomeFragment extends Fragment {
 
         btHeld.setOnClickListener(view -> {
 
-            double distance1 = distance(startPoint.getLatitude(), startPoint.getLongitude(), latitude1, longitude1);
-            double distance2 = distance(startPoint.getLatitude(), startPoint.getLongitude(), latitude2, longitude2);
-            double distance3 = distance(startPoint.getLatitude(), startPoint.getLongitude(), latitude3, longitude3);
+                    double distance1 = distance(startPoint.getLatitude(), startPoint.getLongitude(), latitude1, longitude1);
+                    double distance2 = distance(startPoint.getLatitude(), startPoint.getLongitude(), latitude2, longitude2);
+                    double distance3 = distance(startPoint.getLatitude(), startPoint.getLongitude(), latitude3, longitude3);
 
-            double zoom_ =(-1.161*Math.log(distance1)+14.729)*1.09;
+                    double zoom_ =(-1.161*Math.log(distance1)+14.729)*1.09;
 
-            per1Market = createMarker(person1, "Familia1 "+ distance1+ " km", null, R.drawable.marker11);
-            per2Market = createMarker(person2, "Familia2 "+ distance2+ " km", null, R.drawable.marker11);
-            per3Market = createMarker(person3, "Familia3 "+ distance3+ " km", null, R.drawable.marker11);
-            map.getOverlays().add(per1Market);
-            map.getOverlays().add(per2Market);
-            map.getOverlays().add(per3Market);
+                    per1Market = createMarker(person1, "Familia1 "+ distance1+ " km", null, R.drawable.marker11);
+                    per2Market = createMarker(person2, "Familia2 "+ distance2+ " km", null, R.drawable.marker11);
+                    per3Market = createMarker(person3, "Familia3 "+ distance3+ " km", null, R.drawable.marker11);
+                    map.getOverlays().add(per1Market);
+                    map.getOverlays().add(per2Market);
+                    map.getOverlays().add(per3Market);
 
-            mapController = map.getController();
-            mapController.setZoom(zoom_);
-            mapController.setCenter(startPoint);
+                    mapController = map.getController();
+                    mapController.setZoom(zoom_);
+                    mapController.setCenter(startPoint);
 
-            drawRoute(startPoint, person1);
+                    drawRoute(startPoint, person1);
                     gps_geo = person1;
                     markerstatus = true;
+                    //****************************************************************
+                    //Boton de de contacto
 
-        }
+                    fechaact= new SimpleDateFormat("dd/MM/yyyy h:mm a");
+                    Date date = new Date();
+                    String dateToStr = fechaact.format(date);
+                    String sumevento = Integer.toString(sevento);
+                    String fun="Ayuda del Contacto";
+                    String Ubicacion=String.valueOf(startPoint);
+                    arreglocont a= new arreglocont();
+                    a.setUid(UUID.randomUUID().toString());
+                    a.setEvento(sumevento);
+                    a.setFecha(dateToStr);
+                    a.setFuente(fun);
+                    a.setUserid(GlobalVar.UidMain);
+                    a.setUbica(Ubicacion);
+                    Toast myToast = Toast.makeText(getContext(), String.valueOf("Ayuda del Contacto"), Toast.LENGTH_SHORT);
+                    myToast.show();
+                    System.out.println(sumevento);
+                    System.out.println(fun);
+                    //databaseReference.child("arreglocont").child(a.getUid()).setValue(a);
+                    databaseReference.child("historial").child(GlobalVar.UidMain).child(a.getUid()).setValue(a);
+                    //databaseReference = database.getReference("Mensajes"+"/"+GlobalVar.UidMain+"/"+KEY_RECEPTOR);
+                    sevento++;
+
+                }
         );
 
         roadManager = new OSRMRoadManager(binding.getRoot().getContext(), "ANDROID");
@@ -304,6 +344,14 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
+
+
+    private void inicializarFirebase() {
+        FirebaseApp.initializeApp(getContext());
+        firebaseDatabase= FirebaseDatabase.getInstance();
+        databaseReference=firebaseDatabase.getReference();
+    }
+
 
     private MapEventsOverlay createOverlayEvents() {
         MapEventsOverlay overlayEventos = new MapEventsOverlay(new MapEventsReceiver() {
@@ -412,9 +460,12 @@ public class HomeFragment extends Fragment {
 
                     newlatitude=latitude;
                     latitude = lastLocation.getLatitude();
+                    GlobalVar.userlatitude = String.valueOf(latitude);
+
 
                     newlongitude =longitude;
                     longitude = lastLocation.getLongitude();
+                    GlobalVar.userlongitude = String.valueOf(longitude);
 
 
                     if(zoom == 1){

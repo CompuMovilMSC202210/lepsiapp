@@ -196,6 +196,7 @@ public class Register extends AppCompatActivity {
                         hashMap.put("userEps", userEps);
                         hashMap.put("imageURL", "default");
                         hashMap.put("status", "offline");
+                        hashMap.put("rol", "paciente");
                         hashMap.put("search", userEmail.toLowerCase());
 
 
