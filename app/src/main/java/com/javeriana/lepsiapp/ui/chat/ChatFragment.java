@@ -50,7 +50,7 @@ public class ChatFragment extends Fragment {
         rvUsuarios = binding.rvUsuarios;
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        rvUsuarios.setLayoutManager(linearLayoutManager);
+        rvUsuarios.setLayoutManager( new WrapContentLinearLayouManager(getContext(),linearLayoutManager.VERTICAL,false));
         Query query = FirebaseDatabase.getInstance().getReference()
                 .child("Usuarios");
                 //.limitToLast(3); //limite de usuarios

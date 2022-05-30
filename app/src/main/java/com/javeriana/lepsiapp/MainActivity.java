@@ -32,7 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
-import com.javeriana.lepsiapp.activity.LoginActivity;
+
 import com.javeriana.lepsiapp.activity.RegistroContact;
 import com.javeriana.lepsiapp.databinding.ActivityMainBinding;
 import com.javeriana.lepsiapp.entidades.Usuario;
@@ -40,6 +40,7 @@ import com.javeriana.lepsiapp.entidades.Usuario;
 import com.google.firebase.FirebaseApp;
 
 import com.javeriana.lepsiapp.data.model.arreglocont;
+import com.javeriana.lepsiapp.ui.login.LoginActivity;
 
 
 import java.text.SimpleDateFormat;

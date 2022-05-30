@@ -71,7 +71,7 @@ public class AdapterMensajes extends RecyclerView.Adapter<MensajeriaHolder> {
             holder.getMensaje().setVisibility(View.VISIBLE);
         }
 
-       // holder.getHora().setText(lMensaje.fechaDeCreacionDelMensaje());
+        //holder.getHora().setText(lMensaje.fechaDeCreacionDelMensaje());
     }
 
     @Override

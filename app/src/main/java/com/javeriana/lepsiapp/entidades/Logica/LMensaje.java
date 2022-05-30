@@ -1,13 +1,10 @@
 package com.javeriana.lepsiapp.entidades.Logica;
 
-
+import org.ocpsoft.prettytime.PrettyTime;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import com.javeriana.lepsiapp.entidades.Mensaje;
-
-import org.ocpsoft.prettytime.PrettyTime;
-
 /**
  * Created by user on 28/08/2018. 28
  */
@@ -16,8 +13,6 @@ public class LMensaje {
     private String key;
     private Mensaje mensaje;
     private LUsuario lUsuario;
-
-
     public LMensaje(String key, Mensaje mensaje) {
         this.key = key;
         this.mensaje = mensaje;
@@ -39,7 +34,7 @@ public class LMensaje {
         this.mensaje = mensaje;
     }
 
-    public long getCreatedTimestampLong() {
+    public long getCreatedTimestampLong(){
         return (long) mensaje.getCreatedTimestamp();
     }
 
@@ -54,8 +49,12 @@ public class LMensaje {
     public String fechaDeCreacionDelMensaje(){
         Date date = new Date(getCreatedTimestampLong());
         PrettyTime prettyTime = new PrettyTime(new Date(),Locale.getDefault());
-        return prettyTime.format(date);}
-
-
+        return prettyTime.format(date);
+        /*Date date = new Date(getCreatedTimestampLong());
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a", Locale.getDefault());//a pm o am
+        return sdf.format(date);*/
+    }
 
 }
+
+

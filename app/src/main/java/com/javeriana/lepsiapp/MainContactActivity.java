@@ -16,8 +16,9 @@ import androidx.navigation.ui.NavigationUI;
 
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.javeriana.lepsiapp.activity.LoginActivity;
+
 import com.javeriana.lepsiapp.databinding.ActivityContactMainBinding;
+import com.javeriana.lepsiapp.ui.login.LoginActivity;
 
 
 public class MainContactActivity extends AppCompatActivity {

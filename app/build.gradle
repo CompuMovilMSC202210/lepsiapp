@@ -75,9 +75,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-    implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
-
-    implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
+    // https://mavenlibs.com/maven/dependency/org.ocpsoft.prettytime/prettytime
+    implementation 'org.ocpsoft.prettytime:prettytime:5.0.2.Final'
 
 
 //    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
