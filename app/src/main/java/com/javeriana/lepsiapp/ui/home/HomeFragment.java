@@ -454,6 +454,7 @@ public class HomeFragment extends Fragment {
                     newlatitude=latitude;
                     latitude = lastLocation.getLatitude();
 
+
                     newlongitude =longitude;
                     longitude = lastLocation.getLongitude();
 

@@ -75,7 +75,7 @@ public class mainActivity extends AppCompatActivity {
         txtMensaje = (EditText) findViewById(R.id.txtMensaje);
         btnEnviar = (Button) findViewById(R.id.btnEnviar);
         btnEnviarFoto = (ImageButton) findViewById(R.id.btnEnviarFoto);
-        cerrarSesion = (Button) findViewById(R.id.cerrarSesion);
+
         fotoperfilCadena ="";
 
         database = FirebaseDatabase.getInstance();
@@ -140,8 +140,8 @@ public class mainActivity extends AppCompatActivity {
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                MensajeRecibir m = snapshot.getValue(MensajeRecibir.class); //cambie dataSnapshot por snapshot
-                adapter.addMensaje(m);
+               // MensajeRecibir m = snapshot.getValue(MensajeRecibir.class); //cambie dataSnapshot por snapshot
+               // adapter.addMensaje(m);
             }
 
             @Override

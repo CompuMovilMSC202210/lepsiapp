@@ -1,31 +1,30 @@
 package com.javeriana.lepsiapp.activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+
 import android.os.Bundle;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.javeriana.lepsiapp.AdapterMensajes;
-import com.javeriana.lepsiapp.entidades.MensajeEnviar;
-import com.javeriana.lepsiapp.entidades.MensajeRecibir;
-import com.javeriana.lepsiapp.entidades.Usuario;
-import com.javeriana.lepsiapp.R;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -38,90 +37,94 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
+import java.util.HashMap;
+import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
+import com.javeriana.lepsiapp.AdapterMensajes;
+import com.javeriana.lepsiapp.R;
+import com.javeriana.lepsiapp.entidades.Mensaje;
+import com.javeriana.lepsiapp.entidades.Usuario;
+import com.javeriana.lepsiapp.entidades.Logica.LMensaje;
+import com.javeriana.lepsiapp.entidades.Logica.LUsuario;
+import com.javeriana.lepsiapp.Persistencia.MensajeriaDAO;
+import com.javeriana.lepsiapp.Persistencia.UsuarioDAO;
+
 
 public class chatActivity extends AppCompatActivity {
 
-    private CircleImageView fotoperfil;
+    private CircleImageView fotoPerfil;
     private TextView nombre;
     private RecyclerView rvMensajes;
     private EditText txtMensaje;
-    private Button btnEnviar,cerrarSesion;
+    private Button btnEnviar;
     private AdapterMensajes adapter;
     private ImageButton btnEnviarFoto;
-
-    private FirebaseDatabase database;
-    private DatabaseReference databaseReference;
     private FirebaseStorage storage;
     private StorageReference storageReference;
-    private static final int PHOTO_SEND=1;
-    private static final int PHOTO_PERFIL=2;
-    private String fotoperfilCadena;
+    private static final int PHOTO_SEND = 1;
+    private static final int PHOTO_PERFIL = 2;
+    private String fotoPerfilCadena;
     private FirebaseAuth mAuth;
     private String NOMBRE_USUARIO;
-
-
-
+    private String KEY_RECEPTOR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_specific_chat);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            KEY_RECEPTOR = bundle.getString("key_receptor");
+        } else {
+            finish();
+        }
 
-        fotoperfil = (CircleImageView) findViewById(R.id.fotoperfil);
+        fotoPerfil = (CircleImageView) findViewById(R.id.fotoperfil);
         nombre = (TextView) findViewById(R.id.nombre);
         rvMensajes = (RecyclerView) findViewById(R.id.rvMensajes);
         txtMensaje = (EditText) findViewById(R.id.txtMensaje);
         btnEnviar = (Button) findViewById(R.id.btnEnviar);
         btnEnviarFoto = (ImageButton) findViewById(R.id.btnEnviarFoto);
-        cerrarSesion = (Button) findViewById(R.id.cerrarSesion);
-        fotoperfilCadena ="";
-
-        database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("chatV2 "); //sala de chat nombre version2
+        fotoPerfilCadena = "";
         storage = FirebaseStorage.getInstance();
         mAuth = FirebaseAuth.getInstance();
-
-
         adapter = new AdapterMensajes(this);
         LinearLayoutManager l = new LinearLayoutManager(this);
         rvMensajes.setLayoutManager(l);
         rvMensajes.setAdapter(adapter);
-
         btnEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                databaseReference.push().setValue(new MensajeEnviar(txtMensaje.getText().toString(), NOMBRE_USUARIO, fotoperfilCadena, "1", ServerValue.TIMESTAMP));
-                txtMensaje.setText("");
+                String mensajeEnviar = txtMensaje.getText().toString();
+                if (!mensajeEnviar.isEmpty()) {
+                    Mensaje mensaje = new Mensaje();
+                    mensaje.setMensaje(mensajeEnviar);
+                    mensaje.setContieneFoto(false);
+                    mensaje.setKeyEmisor(UsuarioDAO.getInstancia().getKeyUsuario());
+                    MensajeriaDAO.getInstancia().nuevoMensaje(UsuarioDAO.getInstancia().getKeyUsuario(), KEY_RECEPTOR, mensaje);
+                    txtMensaje.setText("");
+                }
             }
         });
-
 
         btnEnviarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Intent.ACTION_GET_CONTENT);
                 i.setType("image/jpeg");
-                i.putExtra(Intent.EXTRA_LOCAL_ONLY,true);
-                startActivityForResult(Intent.createChooser(i,"Selecciona una foto"),PHOTO_SEND);
-
+                i.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                startActivityForResult(Intent.createChooser(i, "Selecciona una foto"), PHOTO_SEND);
             }
         });
-
-        fotoperfil.setOnClickListener(new View.OnClickListener() {
+        fotoPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Intent.ACTION_GET_CONTENT);
                 i.setType("image/jpeg");
-                i.putExtra(Intent.EXTRA_LOCAL_ONLY,true);
-                startActivityForResult(Intent.createChooser(i,"Selecciona una foto"),PHOTO_PERFIL);
-
+                i.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                startActivityForResult(Intent.createChooser(i, "Selecciona una foto"), PHOTO_PERFIL);
             }
         });
-
-
-
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
@@ -130,42 +133,69 @@ public class chatActivity extends AppCompatActivity {
             }
         });
 
-        databaseReference.addChildEventListener(new ChildEventListener() {
+        FirebaseDatabase.
+                getInstance().
+                getReference("Mensajes").
+                child(UsuarioDAO.getInstancia().getKeyUsuario()).
+                child(KEY_RECEPTOR).addChildEventListener(new ChildEventListener() {
+
+            //traer la informacion del usuario
+            //guardamos la informacion del usuario en una lista temporal
+            //obtenemos la informacion guardada  por la llave
+            Map<String, LUsuario> mapUsuariosTemporales = new HashMap<>();
+
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                MensajeRecibir m = snapshot.getValue(MensajeRecibir.class); //cambie dataSnapshot por snapshot
-                adapter.addMensaje(m);
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                final Mensaje mensaje = dataSnapshot.getValue(Mensaje.class);
+                final LMensaje lMensaje = new LMensaje(dataSnapshot.getKey(), mensaje);
+                final int posicion = adapter.addMensaje(lMensaje);
+                if (mapUsuariosTemporales.get(mensaje.getKeyEmisor()) != null) {
+                    lMensaje.setlUsuario(mapUsuariosTemporales.get(mensaje.getKeyEmisor()));
+                    adapter.actualizarMensaje(posicion, lMensaje);
+                } else {
+                    UsuarioDAO.getInstancia().obtenerInformacionDeUsuarioPorLLave(mensaje.getKeyEmisor(), new UsuarioDAO.IDevolverUsuario() {
+                        @Override
+                        public void devolverUsuario(LUsuario lUsuario) {
+                            mapUsuariosTemporales.put(mensaje.getKeyEmisor(), lUsuario);
+                            lMensaje.setlUsuario(lUsuario);
+                            adapter.actualizarMensaje(posicion, lMensaje);
+                        }
+
+                        @Override
+                        public void devolverError(String error) {
+                            Toast.makeText(chatActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
             }
 
             @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
 
             }
 
             @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });
-
-
         verifyStoragePermissions(this);
 
     }
 
     private void setScrollbar() {
-
-        rvMensajes.scrollToPosition(adapter.getItemCount()-1);
+        rvMensajes.scrollToPosition(adapter.getItemCount() - 1);
     }
 
     public static boolean verifyStoragePermissions(Activity activity) {
@@ -182,71 +212,41 @@ public class chatActivity extends AppCompatActivity {
                     REQUEST_EXTERNAL_STORAGE
             );
             return false;
-        }else{
+        } else {
             return true;
         }
     }
 
-
-
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PHOTO_SEND && resultCode == RESULT_OK) {
             Uri u = data.getData();
             storageReference = storage.getReference("imagenes_chat");//imagenes_chat
             final StorageReference fotoReferencia = storageReference.child(u.getLastPathSegment());
-            fotoReferencia.putFile(u).addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            fotoReferencia.putFile(u).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    //  Uri u = taskSnapshot.getDownloadUrl();
-                    MensajeEnviar m = new MensajeEnviar(NOMBRE_USUARIO+" te ha enviado a photo", u.toString(),NOMBRE_USUARIO,fotoperfilCadena,"2", ServerValue.TIMESTAMP);
-                    databaseReference.push().setValue(m);
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+                    return fotoReferencia.getDownloadUrl();
                 }
-
-            });
-        } else if (requestCode == PHOTO_PERFIL && resultCode == RESULT_OK){
-            Uri u = data.getData();
-            storageReference = storage.getReference("fotoperfil");//imagenes_chat
-            final StorageReference fotoReferencia = storageReference.child(u.getLastPathSegment());
-            fotoReferencia.putFile(u).addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                 @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    //  Uri u = taskSnapshot.getDownloadUrl();
-                    fotoperfilCadena=u.toString();
-                    MensajeEnviar m = new MensajeEnviar(NOMBRE_USUARIO+"ha actualizado su foto de perfil", u.toString(),NOMBRE_USUARIO,fotoperfilCadena,"2", ServerValue.TIMESTAMP);
-                    databaseReference.push().setValue(m);
-                    Glide.with(chatActivity.this).load(u.toString()).into(fotoperfil);
-                }
-
-            });
-
-
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser !=null) {
-            btnEnviar.setEnabled(false);
-            DatabaseReference reference = database.getReference("Usuarios/"+currentUser.getUid());
-            reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Usuario usuario = snapshot.getValue(Usuario.class); //cambio dataSnapshot por snapshot
-                    NOMBRE_USUARIO = usuario.getUserName();
-                    nombre.setText(NOMBRE_USUARIO);
-                    btnEnviar.setEnabled(true);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri uri = task.getResult();
+                        Mensaje mensaje = new Mensaje();
+                        mensaje.setMensaje("El uuario ha enviado una foto");
+                        mensaje.setUrlFoto(uri.toString());
+                        mensaje.setContieneFoto(true);
+                        mensaje.setKeyEmisor(UsuarioDAO.getInstancia().getKeyUsuario());
+                        MensajeriaDAO.getInstancia().nuevoMensaje(UsuarioDAO.getInstancia().getKeyUsuario(), KEY_RECEPTOR, mensaje);
+                    }
                 }
             });
         }
-    }
 
+    }
 }

@@ -6,6 +6,9 @@ public class Mensaje {
     private String fotoPerfil;
     private String type_mensaje;
     private String urlFoto;
+    private boolean contieneFoto;
+    private String keyEmisor;
+    private Object createdTimestamp;
 
     public String getUrlFoto() {
         return urlFoto;
@@ -69,5 +72,42 @@ public class Mensaje {
 
 
 
+    public boolean isContieneFoto() {
+        return contieneFoto;
+    }
+
+    public void setContieneFoto(boolean contieneFoto) {
+        this.contieneFoto = contieneFoto;
+    }
+
+    public String getKeyEmisor() {
+        return keyEmisor;
+    }
+
+    public void setKeyEmisor(String keyEmisor) {
+        this.keyEmisor = keyEmisor;
+    }
+
+    public Object getCreatedTimestamp() {
+        return createdTimestamp;
+    }
+
+
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

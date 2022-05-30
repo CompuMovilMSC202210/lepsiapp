@@ -6,6 +6,16 @@ public class Usuario {
     private String email;
     private String rol;
 
+    public String getFotoPerfilURL() {
+        return fotoPerfilURL;
+    }
+
+    public void setFotoPerfilURL(String fotoPerfilURL) {
+        this.fotoPerfilURL = fotoPerfilURL;
+    }
+
+    private String fotoPerfilURL;
+
     public Usuario() {
     }
 
@@ -31,3 +41,6 @@ public class Usuario {
         this.rol = rol;
     }
 }
+
+
+

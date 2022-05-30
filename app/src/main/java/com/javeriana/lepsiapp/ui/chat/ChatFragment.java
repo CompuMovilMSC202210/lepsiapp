@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -29,6 +30,7 @@ import com.javeriana.lepsiapp.activity.chatActivity;
 
 
 import com.javeriana.lepsiapp.databinding.FragmentChatBinding;
+import com.javeriana.lepsiapp.entidades.Logica.LUsuario;
 import com.javeriana.lepsiapp.entidades.Usuario;
 
 public class ChatFragment extends Fragment {
@@ -70,6 +72,20 @@ public class ChatFragment extends Fragment {
             protected void onBindViewHolder(UsuarioViewHolder holder, int position, Usuario model) {
 
                 holder.getTxtNombreUsuario().setText(model.getUserName());
+
+                LUsuario lUsuario = new LUsuario(getSnapshots().getSnapshot(position).getKey(),model);
+
+
+                holder.getLayoutContactosChat().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent intent = new Intent(getContext(),chatActivity.class);
+                        intent.putExtra("key_receptor",lUsuario.getKey());
+                        startActivity(intent);
+
+                    }
+                });
 
             }
 
