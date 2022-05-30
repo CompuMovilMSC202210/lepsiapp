@@ -27,7 +27,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.javeriana.lepsiapp.GlobalVar;
-import com.javeriana.lepsiapp.activity.LoginActivity;
+import com.javeriana.lepsiapp.ui.login.LoginActivity;
 import com.javeriana.lepsiapp.data.model.arreglocont;
 import com.javeriana.lepsiapp.databinding.HomePatientsFragmentBinding;
 import com.google.android.gms.common.api.ApiException;

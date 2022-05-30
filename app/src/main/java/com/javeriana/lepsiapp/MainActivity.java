@@ -1,5 +1,6 @@
 package com.javeriana.lepsiapp;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -39,7 +40,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.StorageReference;
 
 import com.javeriana.lepsiapp.activity.RegistroContact;
-import com.javeriana.lepsiapp.activity.LoginActivity;
+import com.javeriana.lepsiapp.ui.login.LoginActivity;
 import com.javeriana.lepsiapp.databinding.ActivityMainBinding;
 
 import com.google.firebase.FirebaseApp;
