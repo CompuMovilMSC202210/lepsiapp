@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gris_claro"
+    android:orientation="vertical"
     tools:context=".ui.homePatients.HomePatientsFragment">
 
     <TextView
+        android:id="@+id/titugrafica"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="50dp"
+        android:gravity="center_horizontal"
+        android:text="@string/titulografica"
+        android:textColor="@color/purpura_oscuro"
+        android:textSize="30dp" />
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/grafica"
+        android:layout_width="match_parent"
+        android:layout_height="410dp"
+        android:layout_margin="20dp" />
+
     <ImageButton
         android:id="@+id/btnAyudaMain"
-        android:paddingBottom="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_boton_help"
         android:layout_gravity="bottom|center"
-        android:background="@drawable/ic_circle_background"
-        tools:ignore="SpeakableTextPresentCheck"/>
-
-</FrameLayout>
+        android:paddingTop="5dp"
+        android:src="@drawable/ic_boton_help"
+        android:background="@drawable/ic_circle_background"/>
+</LinearLayout>

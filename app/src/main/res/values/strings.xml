@@ -47,6 +47,8 @@
     <string name="latitud" />
     <string name="todoe">TODOe</string>
     <string name="PermissionSaveImage">Permiso Denegado</string>
+    <string name="titulografica">Fechas Vs Episodios</string>
+
 
 
     <string-array name="Identificacion">
