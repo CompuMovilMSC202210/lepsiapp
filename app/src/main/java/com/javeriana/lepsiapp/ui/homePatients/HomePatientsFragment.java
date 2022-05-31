@@ -6,6 +6,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.DownloadManager;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -15,6 +16,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -44,11 +50,15 @@ import android.widget.Toast;
 
 import com.javeriana.lepsiapp.ui.home.HomeViewModel;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.osmdroid.util.GeoPoint;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class HomePatientsFragment extends Fragment {
@@ -124,6 +134,11 @@ public class HomePatientsFragment extends Fragment {
 
         btHeld.setOnClickListener(view -> {
 
+
+            //Notificacion
+
+            llamarespecifico();
+
             //Boton de ayuda
             //GeoPoint startPoint = new GeoPoint(latitude, longitude);
             fechaact= new SimpleDateFormat("dd/MM/yyyy h:mm a");
@@ -156,6 +171,42 @@ public class HomePatientsFragment extends Fragment {
         );
         return root;
        }
+
+    private void llamarespecifico() {
+
+        RequestQueue myrequest = Volley.newRequestQueue(getContext());
+        JSONObject json = new JSONObject();
+        try {
+            String token = "dGu8QCu6QpiZo8gCqanqJp:APA91bFJ7EdSBmdPv6ZhrtfUwn-A7V5IFz7A4oXS7sKa8otJvffy8wHBxwyvgLMatbjE-HdBpwF3Lqom7Cb5J4W3aZ3gp4YBVL7qjB_p6t6h0evpX8zonFU7GHhwQz44W6_ohWplvUyy";
+            json.put("to",token);
+            JSONObject notificacion = new JSONObject();
+            notificacion.put("titulo","Ayuda");
+            notificacion.put("detalle","Su contacto de LepsiApp ha presentado un episodio");
+
+            json.put("data",notificacion);
+
+            String URL= "https://fcm.googleapis.com/fcm/send";
+
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,URL,json,null,null){
+                @Override
+                public Map<String, String> getHeaders()  {
+                    Map<String,String> header = new HashMap<>();
+
+                    header.put("content-type","application/json");
+                    header.put("authorization","key=AAAA81g1HtM:APA91bGulMnFIavkCqNjlIayZVcceTL7-YVMZPirO8mE4uC2SOqkllJTcYrlymQ8R7xgkUWEoFRWppoQMTi3Wo47HBccMen_UdwCzKhEZApR-M6ceif5EmnkBKqmg72f6Hk2_cPnmJFN ");
+
+                    return header;
+                }
+            };
+
+            myrequest.add(request);
+
+
+        }catch (JSONException e){
+
+            e.printStackTrace();
+        }
+    }
 
     private void getData() {
         barArrayList=new ArrayList();
