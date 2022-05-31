@@ -49,8 +49,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.javeriana.lepsiapp.GlobalVar;
 import com.javeriana.lepsiapp.R;
 import com.javeriana.lepsiapp.data.model.arreglocont;
@@ -189,6 +192,9 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
 
+    DatabaseReference mDatabase;
+    DatabaseReference mDatabase1;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel =
@@ -196,6 +202,51 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+
+
+        // firebease llama a  roll
+        mDatabase= FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Usuarios").child(GlobalVar.UidMain).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+
+                    //
+                    //String rol_fire ="paciente";
+                    String vpacId = snapshot.child("pacId").getValue().toString();
+
+                    mDatabase1= FirebaseDatabase.getInstance().getReference();
+                    mDatabase1.child("Ubicacion").child(vpacId).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()){
+
+                                //
+                                //String rol_fire ="paciente";
+                                GlobalVar.userStartPoint = snapshot.child("ubica").getValue().toString();
+
+                                Toast.makeText(getContext(), GlobalVar.userStartPoint, Toast.LENGTH_LONG).show();
+
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         //final TextView textView = binding.textHome;
         //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
