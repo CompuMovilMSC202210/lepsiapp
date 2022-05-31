@@ -240,8 +240,6 @@ public class LoginActivity extends AppCompatActivity {
                     //String rol_fire ="paciente";
                     String rol_fire = snapshot.child("rol").getValue().toString();
 
-
-
                     iniciarActividad(rol_fire);
 
 

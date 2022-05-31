@@ -101,11 +101,14 @@ public class HomeFragment extends Fragment {
     double latitude3 = 4.634281;
     double longitude3 = -74.115100; //4.634281, -74.115100
 
+    float f_longi;
+    float f_lati;
+
     public static double RADIUS_OF_EARTH_KM = 6371;
 
     GeoPoint startPoint = new GeoPoint(latitude, longitude);
 
-    GeoPoint person1 = new GeoPoint(latitude1, longitude1);
+    GeoPoint person1 ;
     GeoPoint person2 = new GeoPoint(latitude2, longitude2);
     GeoPoint person3 = new GeoPoint(latitude3, longitude3);
 
@@ -222,12 +225,19 @@ public class HomeFragment extends Fragment {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()){
 
-                                //
                                 //String rol_fire ="paciente";
                                 GlobalVar.userStartPoint = snapshot.child("ubica").getValue().toString();
 
-                                Toast.makeText(getContext(), GlobalVar.userStartPoint, Toast.LENGTH_LONG).show();
+                                String[] parts = GlobalVar.userStartPoint.split(",");
+                                String lati = parts[0];
+                                String longi = parts[1];
+                                System.out.println(longi);
+                                System.out.println(lati);
 
+                                f_longi=Float.parseFloat(longi);
+                                f_lati=Float.parseFloat(lati);
+
+                                Toast.makeText(getContext(), GlobalVar.userStartPoint, Toast.LENGTH_LONG).show();
 
                             }
                         }
@@ -339,18 +349,19 @@ public class HomeFragment extends Fragment {
 
         btHeld.setOnClickListener(view -> {
 
-                    double distance1 = distance(startPoint.getLatitude(), startPoint.getLongitude(), latitude1, longitude1);
-                    double distance2 = distance(startPoint.getLatitude(), startPoint.getLongitude(), latitude2, longitude2);
-                    double distance3 = distance(startPoint.getLatitude(), startPoint.getLongitude(), latitude3, longitude3);
+                    double distance1 = distance(startPoint.getLatitude(), startPoint.getLongitude(), f_lati , f_longi);
+                    //double distance2 = distance(startPoint.getLatitude(), startPoint.getLongitude(), latitude2, longitude2);
+                    //double distance3 = distance(startPoint.getLatitude(), startPoint.getLongitude(), latitude3, longitude3);
 
+                    person1 = new GeoPoint(f_lati, f_longi);
                     double zoom_ =(-1.161*Math.log(distance1)+14.729)*1.09;
 
                     per1Market = createMarker(person1, "Familia1 "+ distance1+ " km", null, R.drawable.marker11);
-                    per2Market = createMarker(person2, "Familia2 "+ distance2+ " km", null, R.drawable.marker11);
-                    per3Market = createMarker(person3, "Familia3 "+ distance3+ " km", null, R.drawable.marker11);
+                    //per2Market = createMarker(person2, "Familia2 "+ distance2+ " km", null, R.drawable.marker11);
+                    //per3Market = createMarker(person3, "Familia3 "+ distance3+ " km", null, R.drawable.marker11);
                     map.getOverlays().add(per1Market);
-                    map.getOverlays().add(per2Market);
-                    map.getOverlays().add(per3Market);
+                    //map.getOverlays().add(per2Market);
+                    //map.getOverlays().add(per3Market);
 
                     mapController = map.getController();
                     mapController.setZoom(zoom_);

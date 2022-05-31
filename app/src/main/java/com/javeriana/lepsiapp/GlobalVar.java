@@ -1,5 +1,6 @@
 package com.javeriana.lepsiapp;
 
+import android.location.Geocoder;
 import android.location.Location;
 
 public class GlobalVar {

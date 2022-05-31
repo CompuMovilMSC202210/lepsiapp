@@ -126,9 +126,18 @@ public class Register extends AppCompatActivity {
         File file = new File(getFilesDir(), "picFromCamera");
         uriCamera = FileProvider.getUriForFile(this, 	getApplicationContext().getPackageName() + ".fileprovider", file);
 
-        btnCamara.setOnClickListener(view -> mGetContentCamera.launch(uriCamera));
+        //btnCamara.setOnClickListener(view -> mGetContentCamera.launch(uriCamera));
         btnGalery.setOnClickListener(view -> getContentGallery.launch("image/*"));
         //btnGalery.setOnClickListener(view -> setSaveImagePermit());
+
+        btnCamara.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveImagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                mGetContentCamera.launch(uriCamera);
+            }
+        });
+
 
 
 
@@ -168,6 +177,11 @@ public class Register extends AppCompatActivity {
 
         if(validateForm(userEmail,userPwd,userName, userSurname, userPhone, userEps, userId))
         {
+            if(Image!=null){
+                setSaveImagePermit();
+            }else{
+                txtPermission.setText("Registro sin Imagen");
+            }
             mAuth.createUserWithEmailAndPassword(userEmail,userPwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
