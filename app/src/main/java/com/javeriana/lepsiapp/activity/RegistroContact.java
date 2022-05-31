@@ -16,8 +16,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.javeriana.lepsiapp.GlobalVar;
 import com.javeriana.lepsiapp.entidades.ContactUsuario;
 import com.javeriana.lepsiapp.R;
@@ -28,7 +31,15 @@ public class RegistroContact extends AppCompatActivity {
     private Button btnRegistrar;
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
+    DatabaseReference databaseReference;
+    DatabaseReference mDatabase;
 
+    private String Name_fire ;
+    private String email_fire;
+    private String phone_fire;
+    private String rol_fire;
+
+    private ContactUsuario usuarioPac = new ContactUsuario();
 
 
 
@@ -68,6 +79,39 @@ public class RegistroContact extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
 
+                                        // firebease llama a  roll
+                                        mDatabase= FirebaseDatabase.getInstance().getReference();
+                                        mDatabase.child("Usuarios").child(GlobalVar.UidMain).addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if (snapshot.exists()){
+
+                                                    Name_fire = snapshot.child("userName").getValue().toString();
+                                                    email_fire = snapshot.child("email").getValue().toString();
+                                                    phone_fire = snapshot.child("userPhone").getValue().toString();
+                                                    rol_fire = snapshot.child("rol").getValue().toString();
+
+
+                                                    usuarioPac.setEmail(email_fire);
+                                                    usuarioPac.setUserName(Name_fire);
+                                                    usuarioPac.setUserPhone(phone_fire);
+                                                    usuarioPac.setRol(rol_fire);
+                                                    usuarioPac.setPacId(GlobalVar.UidMain);
+
+                                                    database.getReference("Contactos/"+mAuth.getCurrentUser().getUid()+"/"+GlobalVar.UidMain).setValue(usuarioPac);
+
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
+
+
+
                                         // Sign in success, update UI with the signed-in user's information
                                         Toast.makeText(RegistroContact.this,"Se registro correctamente", Toast.LENGTH_SHORT).show();
                                         ContactUsuario usuario = new ContactUsuario();
@@ -80,7 +124,13 @@ public class RegistroContact extends AppCompatActivity {
                                         FirebaseUser currentUser = mAuth.getCurrentUser();
                                         DatabaseReference reference = database.getReference("Usuarios/"+currentUser.getUid());
                                         reference.setValue(usuario);
+                                        database.getReference("Contactos/"+GlobalVar.UidMain+"/"+mAuth.getCurrentUser().getUid()).setValue(usuario);
                                         finish();
+
+
+
+
+
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Toast.makeText(RegistroContact.this,"Error al registrarse", Toast.LENGTH_LONG).show();

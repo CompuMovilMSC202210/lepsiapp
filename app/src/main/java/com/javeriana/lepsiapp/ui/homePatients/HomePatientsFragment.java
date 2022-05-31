@@ -61,6 +61,7 @@ public class HomePatientsFragment extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     ImageButton btHeld;
+
     BarChart grafica1;
     SimpleDateFormat fechaact;
     FusedLocationProviderClient fusedLocalizacion;
@@ -119,6 +120,8 @@ public class HomePatientsFragment extends Fragment {
 
 
         btHeld = binding.btnAyudaMain;
+
+
         btHeld.setOnClickListener(view -> {
 
             //Boton de ayuda
