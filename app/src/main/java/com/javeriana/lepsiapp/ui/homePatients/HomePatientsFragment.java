@@ -145,6 +145,13 @@ public class HomePatientsFragment extends Fragment {
             System.out.println(fun);
             databaseReference.child("historial").child(GlobalVar.UidMain).child(a.getUid()).setValue(a);
             GlobalVar.sevento++;
+
+            arreglocont ubicaUser = new arreglocont();
+
+            ubicaUser.setUbica(Ubicacion);
+
+            databaseReference.child("Ubicacion").child(GlobalVar.UidMain).setValue(ubicaUser);
+
                 }
         );
         return root;

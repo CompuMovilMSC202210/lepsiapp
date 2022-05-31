@@ -192,6 +192,12 @@ public class MainActivity extends AppCompatActivity {
                     a.setUbica(Ubicacion);
                     databaseReference.child("historial").child(GlobalVar.UidMain).child(a.getUid()).setValue(a);
                     GlobalVar.sevento++;
+
+                    arreglocont ubicaUser = new arreglocont();
+
+                    ubicaUser.setUbica(Ubicacion);
+
+                    databaseReference.child("Ubicacion").child(GlobalVar.UidMain).setValue(ubicaUser);
                     System.out.println("_______________");
                 }
             }
