@@ -52,7 +52,7 @@ public class ChatFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvUsuarios.setLayoutManager( new WrapContentLinearLayouManager(getContext(),linearLayoutManager.VERTICAL,false));
         Query query = FirebaseDatabase.getInstance().getReference()
-                .child("Usuarios");
+                .child("Contactos").child(GlobalVar.UidMain);
                 //.limitToLast(3); //limite de usuarios
 
         FirebaseRecyclerOptions<Usuario> options =
